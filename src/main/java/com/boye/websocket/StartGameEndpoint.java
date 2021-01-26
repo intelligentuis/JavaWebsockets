@@ -11,10 +11,9 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 
-@ServerEndpoint("/snubby-endpoint")
-public class GameEndpoint {
+@ServerEndpoint("/new-player-endpoint")
+public class StartGameEndpoint {
 
-    private Timer timer;
 
     @OnOpen
     public void onOpen(Session session) {
@@ -37,7 +36,6 @@ public class GameEndpoint {
 
     @OnClose
     public void onClose(Session session) {
-        timer.cancel();
         System.out.println("Session " + session.getId() + " is closed.");
     }
 }

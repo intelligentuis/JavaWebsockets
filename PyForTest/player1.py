@@ -5,14 +5,15 @@ import asyncio
 import websockets
 
 async def hello():
-    uri = "ws://pacific-plateau.herokuapp.com/message-endpoint"
-    async with websockets.connect(uri) as websocket:
-        m = "GET"
+	uri = "ws://pacific-plateau.herokuapp.com/new-player-endpoint"
+	async with websockets.connect(uri) as websocket:
+		for i in range(2000):
+			print(i)
+			m = "idPlayer=15f4,idLevel=58zd5,message=startGame"
 
-        await websocket.send(m)
-        print(f"> {m}")
+			await websocket.send(m)
 
-        greeting = await websocket.recv()
-        print(f"< {greeting}")
+			greeting = await websocket.recv()
+			print(f"< {greeting}")
 
 asyncio.get_event_loop().run_until_complete(hello())
