@@ -47,3 +47,35 @@ public class MessageEndpoint {
         System.out.println("Session " + session.getId() + " is closed.");
     }
 }
+
+
+@ServerEndpoint("/snubby-endpoint")
+public class GameEndpoint {
+
+    private Timer timer;
+
+    @OnOpen
+    public void onOpen(Session session) {
+        System.out.println("Open session " + session.getId());
+    }
+
+    @OnMessage
+    public void onMessage(String message, final Session session) {
+        System.out.println("Session " + session.getId() + " message: " + message);
+
+        try {
+            String msg = "Message " + UUID.randomUUID();
+            System.out.println(msg);
+            session.getBasicRemote().sendText(msg);
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+  
+    }
+
+    @OnClose
+    public void onClose(Session session) {
+        timer.cancel();
+        System.out.println("Session " + session.getId() + " is closed.");
+    }
+}

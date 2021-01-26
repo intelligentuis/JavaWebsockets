@@ -5,7 +5,7 @@ import asyncio
 import websockets
 
 async def hello():
-    uri = "ws://pacific-plateau.herokuapp.com/message-endpoint"
+    uri = "ws://pacific-plateau.herokuapp.com/snubby-endpoint"
     async with websockets.connect(uri) as websocket:
         m = "idPlayer=25f54,idLevel=58zd5,message=startGame"
 
