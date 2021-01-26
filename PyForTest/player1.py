@@ -1,7 +1,3 @@
-uri = "ws://intense-caverns.herokuapp.com/chat/abdo"
-
-
-#!/usr/bin/env python
 
 # WS client example
 
@@ -9,12 +5,12 @@ import asyncio
 import websockets
 
 async def hello():
-    # uri = "ws://localhost:8765"
+    uri = "ws://pacific-plateau.herokuapp.com/message-endpoint"
     async with websockets.connect(uri) as websocket:
-        name = input("What's your name? ")
+        m = "GET"
 
-        await websocket.send(name)
-        print(f"> {name}")
+        await websocket.send(m)
+        print(f"> {m}")
 
         greeting = await websocket.recv()
         print(f"< {greeting}")
