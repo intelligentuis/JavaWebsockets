@@ -5,7 +5,7 @@ import asyncio
 import websockets
 
 async def hello():
-    uri = "ws://pacific-plateau.herokuapp.com/sql-endpoint"
+    uri = "wss://pacific-plateau.herokuapp.com/sql-endpoint"
     async with websockets.connect(uri) as websocket:
         m = "GET"
 
