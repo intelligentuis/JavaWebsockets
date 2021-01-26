@@ -15,4 +15,12 @@ async def hello():
         greeting = await websocket.recv()
         print(f"< {greeting}")
 
+        m = "GET"
+
+        await websocket.send(m)
+        print(f"> {m}")
+
+        greeting = await websocket.recv()
+        print(f"< {greeting}")
+
 asyncio.get_event_loop().run_until_complete(hello())
