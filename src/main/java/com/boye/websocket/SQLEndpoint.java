@@ -23,13 +23,13 @@ public class SQLEndpoint {
     }
 
     @OnMessage
-    public void onMessage(String message, final Session session) {
+    public void onMessage(String message, final Session session)throws ServletException, IOException {
         System.out.println("Session " + session.getId() + " message: " + message);
 
         // +++
-        throws ServletException, IOException {
-            Connection connection = null;
-            try {
+        
+        Connection connection = null;
+        try {
                 connection = getConnection();
 
                 Statement stmt = connection.createStatement();
