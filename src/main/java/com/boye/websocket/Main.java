@@ -16,9 +16,9 @@ public class Main {
             webPort = "8080";
         }
         tomcat.setPort(Integer.valueOf(webPort));
-        String webappDirLocation = "src/main/webapp/";
-        tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-        tomcat.start();
-        tomcat.getServer().await();
+        // String webappDirLocation = "src/main/webapp/";
+        // tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        // tomcat.start();
+        // tomcat.getServer().await();
     }
 }
