@@ -10,6 +10,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+
 import java.sql.*;
 
 
@@ -30,12 +31,7 @@ public class SQLEndpoint {
         
         Connection connection = null;
         try {
-
-
-
-
-                connection = DriverManager.getConnection(System.getenv("DATABASE_URL"), username, password);
-            
+                connection = getConnection();
 
                 Statement stmt = connection.createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -65,3 +61,7 @@ public class SQLEndpoint {
 }
 
 
+private static Connection getConnection() throws URISyntaxException, SQLException {
+    String dbUrl = System.getenv("JDBC_DATABASE_URL");
+    return DriverManager.getConnection(dbUrl);
+}
