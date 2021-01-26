@@ -10,6 +10,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.*;
 
 
