@@ -10,8 +10,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.*;
 
 
@@ -32,15 +30,11 @@ public class SQLEndpoint {
         
         Connection connection = null;
         try {
-                URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-                String username = dbUri.getUserInfo().split(":")[0];
-                String password = dbUri.getUserInfo().split(":")[1];
-                int port = dbUri.getPort();
 
-                String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + port + dbUri.getPath();
 
-                connection = DriverManager.getConnection(dbUrl, username, password);
+
+                connection = DriverManager.getConnection(System.getenv("DATABASE_URL"), username, password);
             
 
                 Statement stmt = connection.createStatement();
