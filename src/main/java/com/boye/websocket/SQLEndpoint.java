@@ -25,7 +25,7 @@ public class SQLEndpoint {
     }
 
     @OnMessage
-    public void onMessage(String message, final Session session) throws ServletException, IOException {
+    public void onMessage(String message, final Session session) throws IOException {
         System.out.println("Session " + session.getId() + " message: " + message);
 
         // +++
