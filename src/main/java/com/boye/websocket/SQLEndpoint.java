@@ -31,7 +31,10 @@ public class SQLEndpoint {
         
         Connection connection = null;
         try {
-                connection = getConnection();
+
+                String dbUrl = System.getenv("JDBC_DATABASE_URL");
+                connection= DriverManager.getConnection(dbUrl);
+
 
                 Statement stmt = connection.createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -61,7 +64,3 @@ public class SQLEndpoint {
 }
 
 
-private static Connection getConnection() throws URISyntaxException, SQLException {
-    String dbUrl = System.getenv("JDBC_DATABASE_URL");
-    return DriverManager.getConnection(dbUrl);
-}
