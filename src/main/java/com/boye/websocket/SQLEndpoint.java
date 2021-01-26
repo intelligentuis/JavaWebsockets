@@ -32,7 +32,16 @@ public class SQLEndpoint {
         
         Connection connection = null;
         try {
-                connection = getConnection();
+                URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+                String username = dbUri.getUserInfo().split(":")[0];
+                String password = dbUri.getUserInfo().split(":")[1];
+                int port = dbUri.getPort();
+
+                String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + port + dbUri.getPath();
+
+                connection = DriverManager.getConnection(dbUrl, username, password);
+            
 
                 Statement stmt = connection.createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -62,14 +71,3 @@ public class SQLEndpoint {
 }
 
 
-private Connection getConnection() throws URISyntaxException, SQLException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        int port = dbUri.getPort();
-
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + port + dbUri.getPath();
-
-        return DriverManager.getConnection(dbUrl, username, password);
-    }
