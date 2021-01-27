@@ -154,7 +154,7 @@ public class GameEndpoint {
                     st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
                     st.setDouble(1, Double.parseDouble(map.get("x")));
                     st.setDouble(2, Double.parseDouble(map.get("y")));
-                    st.setString(3, idPlayer1);
+                    st.setString(3, idPlayer);
                     st.setString(4, idGame);
                     st.executeUpdate(); 
 
@@ -167,7 +167,7 @@ public class GameEndpoint {
                     rs = st.executeQuery();
 
                     rs.next();
-                    
+
                     session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("x"));
 
                

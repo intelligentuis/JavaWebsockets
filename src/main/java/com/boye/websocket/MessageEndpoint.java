@@ -10,10 +10,10 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/message-endpoint")
+@ServerEndpoint("/test-endpoint")
 public class MessageEndpoint {
 
-    private Timer timer;
+    Map<String, Session> sessions = new ConcurrentHashMap<>();
 
     @OnOpen
     public void onOpen(Session session) {
@@ -23,22 +23,17 @@ public class MessageEndpoint {
     @OnMessage
     public void onMessage(String message, final Session session) {
         System.out.println("Session " + session.getId() + " message: " + message);
-        if ("GET".equals(message)) {
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                public void run() {
-                    try {
-                        String msg = "Message " + UUID.randomUUID();
-                        System.out.println(msg);
-                        session.getBasicRemote().sendText(msg);
-                    } catch (IOException ex) {
-                        System.err.println(ex.getMessage());
-                    }
-                }
-            }, 0, 1000);
-        } else if ("STOP".equals(message)) {
-            timer.cancel();
-        }
+        // if ("GET".equals(message)) {
+           
+            try {
+                String msg = "Message " + toString(sessions.size());
+                System.out.println(msg);
+                session.getBasicRemote().sendText(msg);
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+          
+        // } 
     }
 
     @OnClose
