@@ -166,6 +166,8 @@ public class GameEndpoint {
                     st.setString(2, idGame);
                     rs = st.executeQuery();
 
+                    rs.next();
+                    
                     session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("x"));
 
                
