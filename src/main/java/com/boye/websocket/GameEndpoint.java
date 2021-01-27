@@ -158,7 +158,6 @@ public class GameEndpoint {
                     st.executeUpdate(); 
 
 
-
                     // Get xy of other players
 
                     st = connection.prepareStatement("SELECT x,y FROM Players WHERE NOT idPlayer = ? and idGame = ?");
@@ -193,11 +192,7 @@ public class GameEndpoint {
                     String dbUrl = System.getenv("JDBC_DATABASE_URL");
                     connection= DriverManager.getConnection(dbUrl);
 
-x,y = p+random.random(),p+random.random()
-        m= {"x":x,"y":y,"message":"update"}
-        await websocket.send(m)
-        rs = await websocket.recv()  # x,y
-        print(i,">>",rs)
+
                     st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
                     st.setString(1, idGame);
                     st.setString(2, idPlayer);
