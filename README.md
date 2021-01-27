@@ -15,7 +15,9 @@ https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 create table Players (
   idPlayer varchar(32),
   idLevel varchar(32),
-  idGame varchar(32),
+  idGame varchar(100),
+  idSession varchar(100),
+  score FLOAT(53) default 0,
   x FLOAT(53) default 0,
   y FLOAT(53) default 0
 );
@@ -23,10 +25,16 @@ create table Players (
 
 
 
-# Add Player
+# Test
 
-INSERT INTO Players (idPlayer,idLevel) VALUES('p55','l10');
+INSERT INTO Players (idPlayer,idLevel,idSession) VALUES('p1','l1','@1');
+
+INSERT INTO Players (idPlayer,idLevel,idSession,idGame) VALUES('p1','l1','@1','2020');
+INSERT INTO Players (idPlayer,idLevel,idSession,idGame) VALUES('p2','l1','@2','2020');
 
 
 SELECT * FROM Players;
 
+
+
+SELECT idSession FROM Players WHERE idGame='2020' and NOT idPlayer = 'p1'
