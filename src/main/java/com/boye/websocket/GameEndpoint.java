@@ -158,6 +158,7 @@ public class GameEndpoint {
                     st.executeUpdate(); 
 
 
+
                     // Get xy of other players
 
                     st = connection.prepareStatement("SELECT x,y FROM Players WHERE NOT idPlayer = ? and idGame = ?");
