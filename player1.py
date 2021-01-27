@@ -1,6 +1,6 @@
 
 # WS client Game Sumilation
-
+# asserst X=""
 
 import asyncio
 import websockets
@@ -10,7 +10,7 @@ import time
 async def hello():
 	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint"
 	async with websockets.connect(uri) as websocket:
-		m = {"idPlayer":input("idPlayer:"),"idLevel":input("idLevel:"),"option":"startGame"}
+		m = {"idPlayer":input("idPlayer:"),"idLevel":input("idLevel:"),"option":"startGame","ncoins":"1"}
 
 
 		await websocket.send(json.dumps(m))
@@ -18,7 +18,7 @@ async def hello():
 		rs = await websocket.recv()  # idGame=####
 		print(f"< {rs}")
 
-		x,y = random.randint(1,1999)+0.666,random.randint(1,1999)+0.666
+		x,y = random.randint(1,1999),random.randint(1,1999)
 		m= {"x":str(x),"y":str(y),"option":"update"}
 		await websocket.send(json.dumps(m))
 		rs = await websocket.recv()  # x,y
