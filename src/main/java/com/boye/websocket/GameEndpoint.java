@@ -11,7 +11,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.sql.*;
 import java.util.*; 
-import org.(String)json.*;
+import org.json.*;
 
 @ServerEndpoint("/game-endpoint")
 public class GameEndpoint {
