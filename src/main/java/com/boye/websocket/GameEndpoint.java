@@ -138,7 +138,7 @@ public class GameEndpoint {
 
         }
         // Send And Get Update
-        else if(option.get("message").equals("update"))
+        else if(option.equals("update"))
         {
 
             PreparedStatement st;
@@ -181,7 +181,7 @@ public class GameEndpoint {
 
         }
         // 
-        else if(option.get("message").equals("coinEated"))
+        else if(option.equals("coinEated"))
         {
 
             PreparedStatement st;
