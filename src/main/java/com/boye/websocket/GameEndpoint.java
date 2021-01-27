@@ -94,7 +94,7 @@ public class GameEndpoint {
                         st.executeUpdate(); 
 
                         // Set Game ID
-                        st = connection.prepareStatement("UPDATE Players SET idGame = ? WHERE idPlayer IN (?,?,?)");
+                        st = connection.prepareStatement("UPDATE Players SET idGame = ? WHERE idPlayer IN (?,?)");
                         st.setString(1, idGame);
                         st.setString(2, idPlayer1);
                         st.setString(3, idPlayer2);
