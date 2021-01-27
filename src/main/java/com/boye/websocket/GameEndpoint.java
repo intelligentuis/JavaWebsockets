@@ -26,7 +26,15 @@ public class GameEndpoint {
     @OnOpen
     public void onOpen(Session session) {
 
+        try{
+
         session.getBasicRemote().sendText("Hello "+session.getId());
+        } catch (Exception e) {
+                System.out.println("There was an error: " + e.getMessage());
+        
+            } 
+
+
         System.out.println("Open session " + session.getId());
         peers.put(session.getId(), session);
     }
