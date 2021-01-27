@@ -12,24 +12,21 @@ https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 
 
 
-create table QueuePlayers (
+create table Players (
   idPlayer varchar(32),
   idLevel varchar(32),
-  idGame varchar(32) 
-);
-
-
-create table GamePlayers (
   idGame varchar(32),
-  X1 varchar(32),
-  Y1 varchar(32),
-  X2 varchar(32),
-  Y2 varchar(32)
+  x FLOAT(53) default 0,
+  y FLOAT(53) default 0
 );
+
+
+
 
 # Add Player
 
-INSERT INTO QueuePlayers (idPlayer,idLevel) VALUES('4f5f','fppf5');
+INSERT INTO Players (idPlayer,idLevel) VALUES('p55','l10');
 
-SELECT * FROM QueuePlayers;
+
+SELECT * FROM Players;
 
