@@ -38,7 +38,6 @@ public class MessageEndpoint {
 
     @OnClose
     public void onClose(Session session) {
-        timer.cancel();
         System.out.println("Session " + session.getId() + " is closed.");
     }
 }

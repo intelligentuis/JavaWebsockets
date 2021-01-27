@@ -6,11 +6,22 @@ import websockets
 import random
 
 async def hello():
-	uri = "ws://pacific-plateau.herokuapp.com/test-endpoint"
+	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint"
 	async with websockets.connect(uri) as websocket:
+		m = "idPlayer=%s,idLevel=%s,message=startGame"%(input("idPlayer:"),input("idLevel:"))
 
-		await websocket.send("ok")
+		await websocket.send(m)
 
 		rs = await websocket.recv()  # idGame=####
-		print(rs)
+		print(f"< {rs}")
+
+		p=random.randint(1,100)
+
+		for i in range(100):
+			x,y = p+random.random(),p+random.random()
+
+			m = "x=%f,y=%f,message=update"%(x,y)
+			await websocket.send(m)
+			rs = await websocket.recv()  # x,y
+			print(i,">>",rs)
 asyncio.get_event_loop().run_until_complete(hello())
