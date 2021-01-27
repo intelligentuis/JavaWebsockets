@@ -57,7 +57,9 @@ public class GameEndpoint {
 
         // Replying ( There are 3 sinarios)
         // 1s : Find Player
-        if((String)json.get("message").equals("startGame"))
+        String option = (String)json.get("message");
+        
+        if(option.equals("startGame"))
         {
 
             idLevel = (String)json.get("idLevel");
@@ -136,7 +138,7 @@ public class GameEndpoint {
 
         }
         // Send And Get Update
-        else if((String)json.get("message").equals("update"))
+        else if(option.get("message").equals("update"))
         {
 
             PreparedStatement st;
@@ -179,7 +181,7 @@ public class GameEndpoint {
 
         }
         // 
-        else if((String)json.get("message").equals("coinEated"))
+        else if(option.get("message").equals("coinEated"))
         {
 
             PreparedStatement st;
