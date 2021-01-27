@@ -58,7 +58,7 @@ public class GameEndpoint {
                     String dbUrl = System.getenv("JDBC_DATABASE_URL");
                     connection= DriverManager.getConnection(dbUrl);
 
-                    PreparedStatement st = myconnection.prepareStatement("INSERT INTO idPlayer,idLevel VALUES (?,?)");
+                    PreparedStatement st = connection.prepareStatement("INSERT INTO idPlayer,idLevel VALUES (?,?)");
                     st.setString(1, map.get("name2"));
                     ResultSet rs = st.executeQuery();
 
