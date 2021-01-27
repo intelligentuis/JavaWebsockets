@@ -15,8 +15,6 @@ import java.util.*;
 @ServerEndpoint("/test-endpoint")
 public class MessageEndpoint {
 
-    Map<String, Session> sessions = new Map<String, Session>();
-
     @OnOpen
     public void onOpen(Session session) {
         System.out.println("Open session " + session.getId());
@@ -29,7 +27,7 @@ public class MessageEndpoint {
            
             try {
                 Integer i = sessions.size();
-                String msg = "Message " + i.toString();
+                String msg = "Message " + findOtherSessionById(message);
                 System.out.println(msg);
                 session.getBasicRemote().sendText(msg);
             } catch (IOException ex) {
@@ -46,3 +44,13 @@ public class MessageEndpoint {
 }
 
 
+
+private static String findOtherSessionById(String id) {
+    for (Session session : user.getOpenSessions()) {
+        if (id.equals(session.getId())) {
+            // return session;
+            return "true";
+        }
+    }
+    return "false"; // null
+}
