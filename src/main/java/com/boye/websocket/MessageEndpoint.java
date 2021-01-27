@@ -27,6 +27,7 @@ public class MessageEndpoint {
            
             try {
                 String ok = "false";
+                String id = message;
                 for (Session session : user.getOpenSessions()) {
                     if (id.equals(session.getId())) {
                         // return session;
