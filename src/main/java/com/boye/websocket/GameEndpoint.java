@@ -57,8 +57,8 @@ public class GameEndpoint {
                     PreparedStatement st = connection.prepareStatement("INSERT INTO QueuePlayers (idPlayer,idLevel)  VALUES (?,?)");
                     st.setString(1, map.get("idPlayer"));
                     st.setString(2, map.get("idLevel"));
-                    ResultSet rs = st.executeQuery();
-
+                    // ResultSet rs = st.executeQuery();
+                    int rows = st.executeUpdate(); 
 
                     // String out ;
                     // while (!rs.next()) {
