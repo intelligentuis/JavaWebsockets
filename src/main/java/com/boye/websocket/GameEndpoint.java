@@ -47,7 +47,7 @@ public class GameEndpoint {
         {
 
             idLevel = json.getString("idLevel");
-            idPlayer = "@"+UUID.randomUUID();//json.getString("idPlayer");
+            idPlayer = "@"+UUID.randomUUID();
 
             PreparedStatement st;
             Connection connection = null;
@@ -65,7 +65,7 @@ public class GameEndpoint {
 
                     if (rs.next()) // SO I AM PLAYER 2
                     {
-                        idPlayer2 = "@"+UUID.randomUUID();//json.getString("idPlayer");
+                        idPlayer2 = idPlayer;//json.getString("idPlayer");
                         idPlayer1 = rs.getString("idPlayer");
 
                         idGame = "@"+UUID.randomUUID();
@@ -88,7 +88,7 @@ public class GameEndpoint {
                         session.getBasicRemote().sendText("GameBegins");
                     }else // SO I AM PLAYER 1
                     {
-                        idPlayer1 = "@"+UUID.randomUUID() ;//json.getString("idPlayer");
+                        idPlayer1 = idPlayer; ;//json.getString("idPlayer");
                         idLevel = json.getString("idLevel");
                         // Init Player
                         st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel,idSession)  VALUES ( ?,?,?)");
@@ -132,7 +132,7 @@ public class GameEndpoint {
 
                     System.out.println("IDPLAYER "+idPlayer+" IDGAME "+idGame);
 
-                    
+
                     String dbUrl = System.getenv("JDBC_DATABASE_URL");
                     connection= DriverManager.getConnection(dbUrl);
 
