@@ -11,6 +11,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import java.util.*; 
+import org.json.*;
 
 @ServerEndpoint("/test-endpoint")
 public class MessageEndpoint {
@@ -21,7 +22,7 @@ public class MessageEndpoint {
     @OnOpen
     public void onOpen(Session session) {
         System.out.println("Open session " + session.getId());
-        peers.add(session.getId(), session);
+        peers.put(session.getId(), session);
     }
 
     @OnMessage
