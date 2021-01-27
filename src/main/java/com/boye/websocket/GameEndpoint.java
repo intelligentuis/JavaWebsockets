@@ -105,6 +105,13 @@ public class GameEndpoint {
                     }else // SO I AM PLAYER 1
                     {
                         idPlayer1 = map.get("idPlayer");
+                        idLevel = map.get("idLevel");
+                        // Init Player
+                        st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel)  VALUES ( ?,?)");
+                        st.setString(1, idPlayer1);
+                        st.setString(1, idLevel);
+                        st.executeUpdate(); 
+
                         do
                         {
                             st = connection.prepareStatement("SELECT idgame FROM Players WHERE idgame IS NOT  NULL and idPlayer=?");
