@@ -54,7 +54,7 @@ public class GameEndpoint {
 
 
                     // Set Infos in SQL in ordreWating Player
-                    PreparedStatement st = connection.prepareStatement("INSERT INTO idPlayer,idLevel VALUES (?,?)");
+                    PreparedStatement st = connection.prepareStatement("INSERT INTO QueuePlayers (idPlayer,idLevel)  VALUES (?,?)");
                     st.setString(1, map.get("idPlayer"));
                     st.setString(2, map.get("idLevel"));
                     ResultSet rs = st.executeQuery();
@@ -67,7 +67,7 @@ public class GameEndpoint {
 
                     session.getBasicRemote().sendText("ok");
             } catch (Exception e) {
-                // session.getBasicRemote().sendText("There was an error: " + e.getMessage());
+                session.getBasicRemote().sendText("There was an error: " + e.getMessage());
             } finally {
                 if (connection != null) try{connection.close();} catch(SQLException e){}
             }
