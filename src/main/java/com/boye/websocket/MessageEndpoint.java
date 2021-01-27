@@ -40,7 +40,8 @@ public class MessageEndpoint {
 
                 String msg = "Message " + ok;
                 System.out.println(msg);
-                session.getBasicRemote().sendText(msg);
+                // session.getBasicRemote().sendText(msg);
+                peers.get(message).getBasicRemote().sendText(msg);
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }
