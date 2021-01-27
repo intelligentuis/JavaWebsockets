@@ -151,21 +151,22 @@ public class GameEndpoint {
                     connection= DriverManager.getConnection(dbUrl);
 
 
-                    st = connection.prepareStatement("UPDATE Players SET xy = ? WHERE idPlayer = ? and idGame = ?");
-                    st.setString(1, map.get("xy"));
-                    st.setString(2, idPlayer);
-                    st.setString(3, idGame);
+                    st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
+                    st.setString(1, Double.parseDouble(map.getString("x")));
+                    st.setString(2, Double.parseDouble(map.getString("y")));
+                    st.setString(3, idPlayer1);
+                    st.setString(4, idPlayer2);
                     st.executeUpdate(); 
 
 
                     // Get xy of other players
 
-                    st = connection.prepareStatement("SELECT xy FROM Players WHERE NOT idPlayer = ? and idGame = ?");
+                    st = connection.prepareStatement("SELECT x,y FROM Players WHERE NOT idPlayer = ? and idGame = ?");
                     st.setString(1, idPlayer);
                     st.setString(2, idGame);
                     rs = st.executeQuery();
 
-                    session.getBasicRemote().sendText(rs.getString("xy"));
+                    session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("x"));
 
                
 

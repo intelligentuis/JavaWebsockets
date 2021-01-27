@@ -16,8 +16,8 @@ create table Players (
   idPlayer varchar(32),
   idLevel varchar(32),
   idGame varchar(32),
-  xy varchar(32) default '0-0',
-
+  x FLOAT(53) default 0,
+  y FLOAT(53) default 0
 );
 
 

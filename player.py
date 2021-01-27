@@ -18,9 +18,9 @@ async def hello():
 		p=random.randint(1,100)
 
 		for i in range(100):
-			x,y = p+random(),p+random()
+			x,y = p+random.random(),p+random.random()
 
-			m = "xy=%f-%f,message=update"(x,y)
+			m = "x=%f,y=%f,message=update"%(x,y)
 			await websocket.send(m)
 			rs = await websocket.recv()  # x,y
 			print(i,">>",rs)
