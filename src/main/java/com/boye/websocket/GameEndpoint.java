@@ -34,7 +34,7 @@ public class GameEndpoint {
         System.out.println("Session " + session.getId() + " message: " + message);
 
 
-        JSONObject (String)json = new JSONObject(message);
+        JSONObject json = new JSONObject(message);
 
 
         //  Player1 wait in the Queue
