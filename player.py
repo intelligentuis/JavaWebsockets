@@ -4,13 +4,14 @@
 import asyncio
 import websockets
 import random
-
+import json
 async def hello():
 	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint"
 	async with websockets.connect(uri) as websocket:
-		m = "idPlayer=%s,idLevel=%s,message=startGame"%(input("idPlayer:"),input("idLevel:"))
+		m = {"idPlayer":input("idPlayer:"),"idLevel":input("idLevel:"),"message":"startGame"}
 
-		await websocket.send(m)
+
+		await websocket.send(json.dumps(m))
 
 		rs = await websocket.recv()  # idGame=####
 		print(f"< {rs}")
@@ -20,7 +21,7 @@ async def hello():
 		for i in range(100):
 			x,y = p+random.random(),p+random.random()
 
-			m = "x=%f,y=%f,message=update"%(x,y)
+			m= {"x":x,"y":y,"message":"update"}
 			await websocket.send(m)
 			rs = await websocket.recv()  # x,y
 			print(i,">>",rs)

@@ -87,14 +87,14 @@ public class GameEndpoint {
                         idGame = "@"+UUID.randomUUID();
 
                         // Init Player
-                        st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel,idSession)  VALUES ( ?,?)");
+                        st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel,idSession)  VALUES ( ?,?,?)");
                         st.setString(1, idPlayer2);
                         st.setString(2, idLevel);
                         st.setString(3, session.getId());
                         st.executeUpdate(); 
 
                         // Set Game ID
-                        st = connection.prepareStatement("UPDATE Players SET idGame = ? WHERE idPlayer IN (?,?)");
+                        st = connection.prepareStatement("UPDATE Players SET idGame = ? WHERE idPlayer IN (?,?,?)");
                         st.setString(1, idGame);
                         st.setString(2, idPlayer1);
                         st.setString(3, idPlayer2);
