@@ -11,7 +11,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.sql.*;
 import java.util.*; 
-import org.json.*;
+import org.(String)json.*;
 
 @ServerEndpoint("/game-endpoint")
 public class GameEndpoint {
@@ -34,7 +34,7 @@ public class GameEndpoint {
         System.out.println("Session " + session.getId() + " message: " + message);
 
 
-        JSONObject json = new JSONObject(message);
+        JSONObject (String)json = new JSONObject(message);
 
 
         //  Player1 wait in the Queue
@@ -57,11 +57,11 @@ public class GameEndpoint {
 
         // Replying ( There are 3 sinarios)
         // 1s : Find Player
-        if(json.get("message").equals("startGame"))
+        if((String)json.get("message").equals("startGame"))
         {
 
-            idLevel = json.get("idLevel");
-            idPlayer = json.get("idPlayer");
+            idLevel = (String)json.get("idLevel");
+            idPlayer = (String)json.get("idPlayer");
 
             PreparedStatement st;
             Connection connection = null;
@@ -79,7 +79,7 @@ public class GameEndpoint {
 
                     if (rs.next()) // SO I AM PLAYER 2
                     {
-                        idPlayer2 = json.get("idPlayer");
+                        idPlayer2 = (String)json.get("idPlayer");
                         idPlayer1 = rs.getString("idPlayer");
 
                         idGame = "@"+UUID.randomUUID();
@@ -102,8 +102,8 @@ public class GameEndpoint {
                         session.getBasicRemote().sendText(idGame);
                     }else // SO I AM PLAYER 1
                     {
-                        idPlayer1 = json.get("idPlayer");
-                        idLevel = json.get("idLevel");
+                        idPlayer1 = (String)json.get("idPlayer");
+                        idLevel = (String)json.get("idLevel");
                         // Init Player
                         st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel,idSession)  VALUES ( ?,?,?)");
                         st.setString(1, idPlayer1);
@@ -136,7 +136,7 @@ public class GameEndpoint {
 
         }
         // Send And Get Update
-        else if(json.get("message").equals("update"))
+        else if((String)json.get("message").equals("update"))
         {
 
             PreparedStatement st;
@@ -149,8 +149,8 @@ public class GameEndpoint {
 
 
                     st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
-                    st.setDouble(1, Double.parseDouble(json.get("x")));
-                    st.setDouble(2, Double.parseDouble(json.get("y")));
+                    st.setDouble(1, Double.parseDouble((String)json.get("x")));
+                    st.setDouble(2, Double.parseDouble((String)json.get("y")));
                     st.setString(3, idPlayer);
                     st.setString(4, idGame);
                     st.executeUpdate(); 
@@ -179,7 +179,7 @@ public class GameEndpoint {
 
         }
         // 
-        else if(json.get("message").equals("coinEated"))
+        else if((String)json.get("message").equals("coinEated"))
         {
 
             PreparedStatement st;
@@ -199,7 +199,7 @@ public class GameEndpoint {
                     st.next();
 
                     // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
-                    peers.get(st.getString("idSession")).getBasicRemote().sendText(json.get("idCoin"));
+                    peers.get(st.getString("idSession")).getBasicRemote().sendText((String)json.get("idCoin"));
                
 
                     
