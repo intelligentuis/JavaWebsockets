@@ -43,14 +43,6 @@ public class GameEndpoint {
         if(map.get("message").equals("startGame"))
         {
 
-            try {
-                String msg = "Message " + map.get("message");
-                System.out.println(msg);
-                session.getBasicRemote().sendText(msg);
-            } catch (IOException ex) {
-                System.err.println(ex.getMessage());
-            }
-
             // ++++
             Connection connection = null;
             try {
@@ -80,6 +72,13 @@ public class GameEndpoint {
                 if (connection != null) try{connection.close();} catch(SQLException e){}
             }
 
+            // try {
+            //     String msg = "Message " + map.get("message");
+            //     System.out.println(msg);
+            //     session.getBasicRemote().sendText(msg);
+            // } catch (IOException ex) {
+            //     System.err.println(ex.getMessage());
+            // }
 
         }
         // Send And Get Update
