@@ -87,7 +87,7 @@ public class GameEndpoint {
                         idPlayer2 = map.get("idPlayer");
                         idPlayer1 = rs.getString("idPlayer");
 
-                        idGame = UUID.randomUUID();
+                        idGame = "@"+UUID.randomUUID();
 
                         // Init Player
                         st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel)  VALUES ( ?,?)");
