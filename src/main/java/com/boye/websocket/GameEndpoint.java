@@ -133,6 +133,7 @@ public class GameEndpoint {
                     String dbUrl = System.getenv("JDBC_DATABASE_URL");
                     connection= DriverManager.getConnection(dbUrl);
 
+                    System.out.println(">>>>>"+json.getString("x"));
 
                     st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
                     st.setString(1, json.getString("x"));
