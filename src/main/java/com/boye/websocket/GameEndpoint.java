@@ -196,6 +196,44 @@ public class GameEndpoint {
                 if (connection != null) try{connection.close();} catch(SQLException e){}
             }
         }
+
+         else if(option.equals("status"))
+        {
+
+            String status = (String)json.get("status");
+            if(Okera.equals("win"))status = "loss";
+            else status = "win";
+
+            PreparedStatement st;
+            Connection connection = null;
+
+            try {
+
+                    String dbUrl = System.getenv("JDBC_DATABASE_URL");
+                    connection= DriverManager.getConnection(dbUrl);
+
+
+                    st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
+                    st.setString(1, idGame);
+                    st.setString(2, idPlayer);
+                    rs = st.executeQuery();
+
+                    rs.next();
+
+                    // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
+                    peers.get(rs.getString("idSession")).getBasicRemote().sendText((String)json.get(Okera));
+               
+
+                    
+            } catch (Exception e) {
+                System.out.println("There was an error: " + e.getMessage());
+        
+            } finally {
+                if (connection != null) try{connection.close();} catch(SQLException e){}
+            }
+        }
+
+
     }
 
     @OnClose
