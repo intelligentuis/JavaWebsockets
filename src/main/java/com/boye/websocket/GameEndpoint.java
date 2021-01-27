@@ -197,40 +197,40 @@ public class GameEndpoint {
             }
         }
 
-         else if(option.equals("status"))
+        else if(option.equals("status"))
         {
 
-            String status = (String)json.get("status");
-            if(Okera.equals("win"))status = "loss";
-            else status = "win";
+            // String status = (String)json.get("status");
+            // if(okera.equals("win"))status = "loss";
+            // else status = "win";
 
-            PreparedStatement st;
-            Connection connection = null;
+            // PreparedStatement st;
+            // Connection connection = null;
 
-            try {
+            // try {
 
-                    String dbUrl = System.getenv("JDBC_DATABASE_URL");
-                    connection= DriverManager.getConnection(dbUrl);
+            //         String dbUrl = System.getenv("JDBC_DATABASE_URL");
+            //         connection= DriverManager.getConnection(dbUrl);
 
 
-                    st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
-                    st.setString(1, idGame);
-                    st.setString(2, idPlayer);
-                    rs = st.executeQuery();
+            //         st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
+            //         st.setString(1, idGame);
+            //         st.setString(2, idPlayer);
+            //         rs = st.executeQuery();
 
-                    rs.next();
+            //         rs.next();
 
-                    // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
-                    peers.get(rs.getString("idSession")).getBasicRemote().sendText((String)json.get(Okera));
+            //         // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
+            //         peers.get(rs.getString("idSession")).getBasicRemote().sendText((String)json.get(Okera));
                
 
                     
-            } catch (Exception e) {
-                System.out.println("There was an error: " + e.getMessage());
+            // } catch (Exception e) {
+            //     System.out.println("There was an error: " + e.getMessage());
         
-            } finally {
-                if (connection != null) try{connection.close();} catch(SQLException e){}
-            }
+            // } finally {
+            //     if (connection != null) try{connection.close();} catch(SQLException e){}
+            // }
         }
 
 
