@@ -151,8 +151,8 @@ public class GameEndpoint {
 
 
                     st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
-                    st.setDouble(1, Double.parseDouble((String)json.get("x")));
-                    st.setDouble(2, Double.parseDouble((String)json.get("y")));
+                    st.setString(1, (String)json.get("x"));
+                    st.setString(2, (String)json.get("y"));
                     st.setString(3, idPlayer);
                     st.setString(4, idGame);
                     st.executeUpdate(); 
@@ -192,7 +192,11 @@ public class GameEndpoint {
                     String dbUrl = System.getenv("JDBC_DATABASE_URL");
                     connection= DriverManager.getConnection(dbUrl);
 
-
+x,y = p+random.random(),p+random.random()
+        m= {"x":x,"y":y,"message":"update"}
+        await websocket.send(m)
+        rs = await websocket.recv()  # x,y
+        print(i,">>",rs)
                     st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
                     st.setString(1, idGame);
                     st.setString(2, idPlayer);

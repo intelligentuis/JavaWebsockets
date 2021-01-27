@@ -18,8 +18,8 @@ create table Players (
   idGame varchar(100),
   idSession varchar(100),
   score FLOAT(53) default 0,
-  x FLOAT(53) default 0,
-  y FLOAT(53) default 0
+  x varchar(32) default '0',
+  y varchar(32) default '0'
 );
 
 
