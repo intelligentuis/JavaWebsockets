@@ -28,8 +28,8 @@ public class MessageEndpoint {
             try {
                 String ok = "false";
                 String id = message;
-                for (Session session : user.getOpenSessions()) {
-                    if (id.equals(session.getId())) {
+                for (Session session2 : session.getOpenSessions()) {
+                    if (id.equals(session2.getId())) {
                         // return session;
                         ok= "true";
                     }
