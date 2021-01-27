@@ -13,6 +13,5 @@ async def hello():
 
 		rs = await websocket.recv() 
 		print(f"< {rs}")
-		time.sleep(200)
 		
 asyncio.get_event_loop().run_until_complete(hello())
