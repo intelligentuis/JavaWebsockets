@@ -26,8 +26,15 @@ public class MessageEndpoint {
         // if ("GET".equals(message)) {
            
             try {
-                Integer i = sessions.size();
-                String msg = "Message " + findOtherSessionById(message);
+                String ok = "false";
+                for (Session session : user.getOpenSessions()) {
+                    if (id.equals(session.getId())) {
+                        // return session;
+                        ok= "true";
+                    }
+                }
+
+                String msg = "Message " + ok;
                 System.out.println(msg);
                 session.getBasicRemote().sendText(msg);
             } catch (IOException ex) {
@@ -44,13 +51,3 @@ public class MessageEndpoint {
 }
 
 
-
-private static String findOtherSessionById(String id) {
-    for (Session session : user.getOpenSessions()) {
-        if (id.equals(session.getId())) {
-            // return session;
-            return "true";
-        }
-    }
-    return "false"; // null
-}
