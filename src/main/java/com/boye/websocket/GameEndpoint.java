@@ -158,8 +158,9 @@ public class GameEndpoint {
                     rs = st.executeQuery();
 
                     rs.next();
-
-                    session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("x"));
+                    System.out.println("####" + rs.getString("x")+","+rs.getString("y"));
+                    System.out.println(idPlayer+" *** "+idPlayer);
+                    session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("y"));
 
                
 
