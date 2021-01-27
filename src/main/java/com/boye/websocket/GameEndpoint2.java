@@ -16,6 +16,7 @@ import org.json.*;
 @ServerEndpoint("/game-endpoint2")
 public class GameEndpoint2 {
 
+    static Map<String, Session> peers = Collections.synchronizedMap(new HashMap<String, Session>());
     // static Map<String, String> players = Collections.synchronizedMap(new HashMap<String, String>());
     
     String idPlayer1,idPlayer2, idPlayer,idGame,idLevel;
