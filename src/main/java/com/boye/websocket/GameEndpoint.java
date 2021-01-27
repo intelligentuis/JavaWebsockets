@@ -130,10 +130,15 @@ public class GameEndpoint {
 
             try {
 
+                    System.out.println("IDPLAYER "+idPlayer+" IDGAME "+idGame);
+
+                    
                     String dbUrl = System.getenv("JDBC_DATABASE_URL");
                     connection= DriverManager.getConnection(dbUrl);
 
                     System.out.println(">>>>>"+json.getString("x"));
+
+                    // UPDATE Players SET x='20' ,y = '20' WHERE idPlayer = '@f4e10b4a-e961-4d3e-b294-8a5f51468a3f' and idGame = '@881d6278-7524-4a87-b0da-e28a01b69406'
 
                     st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
                     st.setString(1, json.getString("x"));
