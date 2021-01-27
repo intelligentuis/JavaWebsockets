@@ -15,7 +15,7 @@ import java.util.*;
 @ServerEndpoint("/game-endpoint")
 public class GameEndpoint {
 
-    String idPlayer1,idPlayer2,idGame;
+    String idPlayer1,idPlayer2,idGame,idLevel;
     ResultSet rs;
 
 
@@ -113,8 +113,8 @@ public class GameEndpoint {
 
                         }while(!rs.next());
 
-
-                        session.getBasicRemote().sendText(rs.getString("idGame"));
+                        idGame =rs.getString("idGame");
+                        session.getBasicRemote().sendText(idGame);
                     }
 
                
