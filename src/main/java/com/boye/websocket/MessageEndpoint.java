@@ -15,7 +15,7 @@ import java.util.*;
 @ServerEndpoint("/test-endpoint")
 public class MessageEndpoint {
 
-    static Map<String, Session> peers = Collections.synchronizedMap(map);
+    static Map<String, Session> peers = Collections.synchronizedMap(new HashMap<String, Session>());
 
 
     @OnOpen
@@ -29,7 +29,7 @@ public class MessageEndpoint {
         System.out.println("Session " + session.getId() + " message: " + message);
         // if ("GET".equals(message)) {
            
-            try {
+            try {peers
                 String ok = "false";
 
                 if(peers.containsKey(message))
