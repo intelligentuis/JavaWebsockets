@@ -152,8 +152,8 @@ public class GameEndpoint {
 
 
                     st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
-                    st.setString(1, Double.parseDouble(map.get("x")));
-                    st.setString(2, Double.parseDouble(map.get("y")));
+                    st.setDouble(1, Double.parseDouble(map.get("x")));
+                    st.setDouble(2, Double.parseDouble(map.get("y")));
                     st.setString(3, idPlayer1);
                     st.setString(4, idPlayer2);
                     st.executeUpdate(); 
