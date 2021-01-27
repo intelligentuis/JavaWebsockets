@@ -91,13 +91,13 @@ public class GameEndpoint {
                         // Init Player
                         st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel)  VALUES ( ?,?)");
                         st.setString(1, idPlayer2);
-                        st.setString(1, idLevel);
+                        st.setString(2, idLevel);
                         st.executeUpdate(); 
 
                         // Set Game ID
                         st = connection.prepareStatement("UPDATE Players SET idGame = '2020f2021' WHERE idPlayer IN (?,?)");
                         st.setString(1, idPlayer1);
-                        st.setString(1, idPlayer2);
+                        st.setString(2, idPlayer2);
                         st.executeUpdate(); 
 
 
