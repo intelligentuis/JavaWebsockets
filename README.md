@@ -13,7 +13,7 @@ https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 
 
 create table Players (
-  idPlayer varchar(32),
+  idPlayer varchar(100),
   idLevel varchar(32),
   idGame varchar(100),
   idSession varchar(100),
