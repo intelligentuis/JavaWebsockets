@@ -84,7 +84,7 @@ public class GameEndpoint {
                         st.setString(3, idPlayer2);
                         st.executeUpdate(); 
 
-
+                        System.out.println("GameBegins");
                         session.getBasicRemote().sendText("GameBegins");
                     }else // SO I AM PLAYER 1
                     {
@@ -106,6 +106,8 @@ public class GameEndpoint {
                         }while(!rs.next());
 
                         idGame =rs.getString("idGame");
+
+                        System.out.println("GameBegins");
                         session.getBasicRemote().sendText("GameBegins");
                     }
 
