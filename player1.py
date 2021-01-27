@@ -15,6 +15,8 @@ async def hello():
 
 		await websocket.send(json.dumps(m))
 
+		rs = await websocket.recv()
+		print(f"< {rs}")
 		rs = await websocket.recv()  # idGame=####
 		print(f"< {rs}")
 

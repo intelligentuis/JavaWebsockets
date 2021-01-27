@@ -28,11 +28,13 @@ public class GameEndpoint {
 
         try{
 
-        session.getBasicRemote().sendText("Hello "+session.getId());
-        } catch (Exception e) {
-                System.out.println("There was an error: " + e.getMessage());
+        session.getBasicRemote().sendText("{'Hello':'44' }");
+
+        } catch (Exception e) 
+        {
+            System.out.println("There was an error: " + e.getMessage());
         
-            } 
+        } 
 
 
         System.out.println("Open session " + session.getId());
@@ -95,7 +97,7 @@ public class GameEndpoint {
                         st.executeUpdate(); 
 
                         System.out.println("GameBegins");
-                        session.getBasicRemote().sendText("GameBegins");
+                        session.getBasicRemote().sendText("{'message':'GameBegins'}");
                     }else // SO I AM PLAYER 1
                     {
                         idPlayer1 = idPlayer; ;//json.getString("idPlayer");
@@ -118,7 +120,7 @@ public class GameEndpoint {
                         idGame =rs.getString("idGame");
 
                         System.out.println("GameBegins");
-                        session.getBasicRemote().sendText("GameBegins");
+                        session.getBasicRemote().sendText("{'message':'GameBegins'}");
                     }
 
                
@@ -170,8 +172,8 @@ public class GameEndpoint {
                     rs.next();
                     System.out.println("####" + rs.getString("x")+","+rs.getString("y"));
                     System.out.println(idPlayer+" *** "+idGame);
-                    session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("y"));
-
+                    // session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("y"));
+                    session.getBasicRemote().sendText("{'x':'255','y':'632','message':'position'}");
                
 
                     
@@ -204,7 +206,7 @@ public class GameEndpoint {
                     rs.next();
 
                     // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
-                    peers.get(rs.getString("idSession")).getBasicRemote().sendText(json.getString("idCoin"));
+                    peers.get(rs.getString("idSession")).getBasicRemote().sendText(json.getString("idCoin"));  /// TODO
                
 
                     
