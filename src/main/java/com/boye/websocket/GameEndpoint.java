@@ -9,6 +9,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import java.sql.*;
 
 
 @ServerEndpoint("/game-endpoint")
@@ -22,8 +23,11 @@ public class GameEndpoint {
 
     @OnMessage
     public void onMessage(String message, final Session session) {
+
+        // Get The Message 
         System.out.println("Session " + session.getId() + " message: " + message);
 
+        // Split The message into map keys:vales
         String[] arrOfStr = message.split(",", 3); 
 
         Map<String, String> map = new HashMap<String, String>();
@@ -34,6 +38,8 @@ public class GameEndpoint {
             map.put(tmp[0],tmp[1]);
         }
 
+        // Replying ( There are 3 sinarios)
+        // 1s : Find Player
         if(map.get("message").equals("startGame"))
         {
 
@@ -44,8 +50,34 @@ public class GameEndpoint {
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }
-            
+
+            // ++++
+            Connection connection = null;
+            try {
+
+                    String dbUrl = System.getenv("JDBC_DATABASE_URL");
+                    connection= DriverManager.getConnection(dbUrl);
+
+                    PreparedStatement st = myconnection.prepareStatement("INSERT INTO idPlayer,idLevel VALUES (?,?)");
+                    st.setString(1, map.get("name2"));
+                    ResultSet rs = st.executeQuery();
+
+
+                    // String out ;
+                    // while (!rs.next()) {
+                    //     out = "Read from DB: " + rs.get("idPlayer") + "\n";
+                    // }
+
+                    session.getBasicRemote().sendText("ok");
+            } catch (Exception e) {
+                // session.getBasicRemote().sendText("There was an error: " + e.getMessage());
+            } finally {
+                if (connection != null) try{connection.close();} catch(SQLException e){}
+            }
+
+
         }
+        // Send And Get Update
         else if(map.get("message").equals("myPosition"))
         {
 
@@ -57,6 +89,7 @@ public class GameEndpoint {
                 System.err.println(ex.getMessage());
             }
         }
+        // 
         else if(map.get("message").equals("coinEated"))
         {
 
