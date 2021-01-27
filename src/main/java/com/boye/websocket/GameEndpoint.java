@@ -15,7 +15,7 @@ import java.util.*;
 @ServerEndpoint("/game-endpoint")
 public class GameEndpoint {
 
-    String idPlayer1,idPlayer2,idGame,idLevel;
+    String idPlayer1,idPlayer2, idPlayer,idGame,idLevel;
     ResultSet rs;
 
 
@@ -49,7 +49,7 @@ public class GameEndpoint {
         //  SELECT idgame FROM Players WHERE idgame IS NOT  NULL and idPlayer='idPlayer1';
 
 
-        // UPDATE Players SET x = ? , y = ? WHERE idPlayer = 'idPlayer1';
+        // UPDATE Players SET xy = ?  WHERE idPlayer = 'idPlayer1';
         // ---------------------
 
         // Player2: searching idPlayer1 
@@ -66,6 +66,7 @@ public class GameEndpoint {
         {
 
             idLevel = map.get("idLevel");
+            idPlayer = map.get("idPlayer");
 
             PreparedStatement st;
             Connection connection = null;
@@ -95,9 +96,10 @@ public class GameEndpoint {
                         st.executeUpdate(); 
 
                         // Set Game ID
-                        st = connection.prepareStatement("UPDATE Players SET idGame = '2020f2021' WHERE idPlayer IN (?,?)");
-                        st.setString(1, idPlayer1);
-                        st.setString(2, idPlayer2);
+                        st = connection.prepareStatement("UPDATE Players SET idGame = ? WHERE idPlayer IN (?,?)");
+                        st.setString(1, idGame);
+                        st.setString(2, idPlayer1);
+                        st.setString(3, idPlayer2);
                         st.executeUpdate(); 
 
 
@@ -137,16 +139,44 @@ public class GameEndpoint {
 
         }
         // Send And Get Update
-        else if(map.get("message").equals("myPosition"))
+        else if(map.get("message").equals("update"))
         {
 
-             try {
-                String msg = "Message " + UUID.randomUUID();
-                System.out.println(msg);
-                session.getBasicRemote().sendText(msg);
-            } catch (IOException ex) {
-                System.err.println(ex.getMessage());
+            PreparedStatement st;
+            Connection connection = null;
+
+            try {
+
+                    String dbUrl = System.getenv("JDBC_DATABASE_URL");
+                    connection= DriverManager.getConnection(dbUrl);
+
+
+                    st = connection.prepareStatement("UPDATE Players SET xy = ? WHERE idPlayer = ? and idGame = ?");
+                    st.setString(1, map.getString("xy"));
+                    st.setString(2, idPlayer);
+                    st.setString(3, idGame);
+                    st.executeUpdate(); 
+
+
+                    // Get xy of other players
+
+                    st = connection.prepareStatement("SELECT xy FROM Players WHERE NOT idPlayer = ? and idGame = ?");
+                    st.setString(1, idPlayer);
+                    st.setString(2, idGame);
+                    rs = st.executeQuery();
+
+                    session.getBasicRemote().sendText(rs.getString("xy"));
+
+               
+
+                    
+            } catch (Exception e) {
+                System.out.println("There was an error: " + e.getMessage());
+        
+            } finally {
+                if (connection != null) try{connection.close();} catch(SQLException e){}
             }
+
         }
         // 
         else if(map.get("message").equals("coinEated"))
