@@ -29,10 +29,10 @@ public class MessageEndpoint {
         System.out.println("Session " + session.getId() + " message: " + message);
         // if ("GET".equals(message)) {
            
-            try {peers
+            try {
                 String ok = "false";
 
-                if(peers.containsKey(message) == true)
+                if(peers.containsKey(message))
                 {
                     ok= "true";
                 }
