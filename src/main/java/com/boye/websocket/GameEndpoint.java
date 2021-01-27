@@ -47,7 +47,7 @@ public class GameEndpoint {
         {
 
             idLevel = (String)json.get("idLevel");
-            idPlayer = (String)json.get("idPlayer");
+            idPlayer = "@"+UUID.randomUUID();//(String)json.get("idPlayer");
 
             PreparedStatement st;
             Connection connection = null;
@@ -65,7 +65,7 @@ public class GameEndpoint {
 
                     if (rs.next()) // SO I AM PLAYER 2
                     {
-                        idPlayer2 = (String)json.get("idPlayer");
+                        idPlayer2 = "@"+UUID.randomUUID();//(String)json.get("idPlayer");
                         idPlayer1 = rs.getString("idPlayer");
 
                         idGame = "@"+UUID.randomUUID();
@@ -88,7 +88,7 @@ public class GameEndpoint {
                         session.getBasicRemote().sendText("GameBegins");
                     }else // SO I AM PLAYER 1
                     {
-                        idPlayer1 = (String)json.get("idPlayer");
+                        idPlayer1 = "@"+UUID.randomUUID() ;//(String)json.get("idPlayer");
                         idLevel = (String)json.get("idLevel");
                         // Init Player
                         st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel,idSession)  VALUES ( ?,?,?)");
