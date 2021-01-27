@@ -57,7 +57,7 @@ public class GameEndpoint {
 
         // Replying ( There are 3 sinarios)
         // 1s : Find Player
-        String option = (String)json.get("message");
+        String option = (String)json.get("option");
 
         if(option.equals("startGame"))
         {

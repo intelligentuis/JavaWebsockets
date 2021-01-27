@@ -18,12 +18,15 @@ async def hello():
 		print(f"< {rs}")
 
 		x,y = random.randint(1,1999)+0.666,random.randint(1,1999)+0.666
-		m= {"x":x,"y":y,"message":"update"}
+		m= {"x":str(x),"y":str(y),"message":"update"}
 		await websocket.send(json.dumps(m))
 		rs = await websocket.recv()  # x,y
-		print(i,">>",rs)
+		print(">>",rs)
 
 		rs = await websocket.recv() # get id coint 
+		print(rs)
 
+		rs = await websocket.recv() # get id coint 
+		print(rs)
 
 asyncio.get_event_loop().run_until_complete(hello())
