@@ -66,19 +66,13 @@ public class GameEndpoint {
                     // }
 
                     session.getBasicRemote().sendText("ok");
-            } catch (Exception | IOException e) {
-                session.getBasicRemote().sendText("There was an error: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("There was an error: " + e.getMessage());
+        
             } finally {
                 if (connection != null) try{connection.close();} catch(SQLException e){}
             }
 
-            // try {
-            //     String msg = "Message " + map.get("message");
-            //     System.out.println(msg);
-            //     session.getBasicRemote().sendText(msg);
-            // } catch (IOException ex) {
-            //     System.err.println(ex.getMessage());
-            // }
 
         }
         // Send And Get Update
