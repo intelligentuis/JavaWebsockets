@@ -87,7 +87,7 @@ public class GameEndpoint {
                         idPlayer2 = map.get("idPlayer");
                         idPlayer1 = rs.getString("idPlayer");
 
-                        idGame = "@2021"; // TODO
+                        idGame = UUID.randomUUID();
 
                         // Init Player
                         st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel)  VALUES ( ?,?)");
@@ -155,7 +155,7 @@ public class GameEndpoint {
                     st.setDouble(1, Double.parseDouble(map.get("x")));
                     st.setDouble(2, Double.parseDouble(map.get("y")));
                     st.setString(3, idPlayer1);
-                    st.setString(4, idPlayer2);
+                    st.setString(4, idGame);
                     st.executeUpdate(); 
 
 
