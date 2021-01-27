@@ -10,7 +10,7 @@ import time
 async def hello():
 	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint"
 	async with websockets.connect(uri) as websocket:
-		m = {"idLevel":"14","option":"startGame","user":"Abdo"}
+		m = {"idLevel":"16","option":"startGame","user":"Abdo"}
 
 
 		await websocket.send(json.dumps(m))
@@ -22,6 +22,7 @@ async def hello():
 			x,y = random.randint(1,1999),random.randint(1,1999)
 			m= {"x":str(x),"y":str(y),"option":"update","user":"Abdo"}
 			await websocket.send(json.dumps(m))
+
 			rs = await websocket.recv()  # x,y
 			print(">>",rs)
 			time.sleep(0.5)

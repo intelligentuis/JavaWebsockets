@@ -25,6 +25,8 @@ public class GameEndpoint {
 
     @OnOpen
     public void onOpen(Session session) {
+
+        session.getBasicRemote().sendText("Hello "+session.getId());
         System.out.println("Open session " + session.getId());
         peers.put(session.getId(), session);
     }
