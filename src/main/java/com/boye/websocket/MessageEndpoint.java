@@ -32,7 +32,7 @@ public class MessageEndpoint {
             try {peers
                 String ok = "false";
 
-                if(peers.containsKey(message))
+                if(peers.containsKey(message) == true)
                 {
                     ok= "true";
                 }
