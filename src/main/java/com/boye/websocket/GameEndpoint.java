@@ -58,7 +58,7 @@ public class GameEndpoint {
         // Replying ( There are 3 sinarios)
         // 1s : Find Player
         String option = (String)json.get("message");
-        
+
         if(option.equals("startGame"))
         {
 
@@ -196,12 +196,12 @@ public class GameEndpoint {
                     st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
                     st.setString(1, idGame);
                     st.setString(2, idPlayer);
-                    st.executeUpdate();
+                    rs = st.executeQuery();
 
-                    st.next();
+                    rs.next();
 
                     // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
-                    peers.get(st.getString("idSession")).getBasicRemote().sendText((String)json.get("idCoin"));
+                    peers.get(rs.getString("idSession")).getBasicRemote().sendText((String)json.get("idCoin"));
                
 
                     
