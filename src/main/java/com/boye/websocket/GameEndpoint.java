@@ -66,7 +66,7 @@ public class GameEndpoint {
                     // }
 
                     session.getBasicRemote().sendText("ok");
-            } catch (Exception e) {
+            } catch (Exception | IOException e) {
                 session.getBasicRemote().sendText("There was an error: " + e.getMessage());
             } finally {
                 if (connection != null) try{connection.close();} catch(SQLException e){}
