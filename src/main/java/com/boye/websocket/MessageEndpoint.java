@@ -15,9 +15,13 @@ import java.util.*;
 @ServerEndpoint("/test-endpoint")
 public class MessageEndpoint {
 
+    static Map<String, Session> peers = Collections.synchronizedMap(map);
+
+
     @OnOpen
     public void onOpen(Session session) {
         System.out.println("Open session " + session.getId());
+        peers.add(session.getId(), session);
     }
 
     @OnMessage
@@ -27,12 +31,10 @@ public class MessageEndpoint {
            
             try {
                 String ok = "false";
-                String id = message;
-                for (Session session2 : session.getOpenSessions()) {
-                    if (id.equals(session2.getId())) {
-                        // return session;
-                        ok= "true";
-                    }
+
+                if(peers.containsKey(message))
+                {
+                    ok= "true";
                 }
 
                 String msg = "Message " + ok;
@@ -47,6 +49,7 @@ public class MessageEndpoint {
 
     @OnClose
     public void onClose(Session session) {
+        peers.remove(session.getId());
         System.out.println("Session " + session.getId() + " is closed.");
     }
 }

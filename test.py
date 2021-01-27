@@ -6,10 +6,10 @@ import websockets
 import random
 
 async def hello():
-	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint"
+	uri = "ws://pacific-plateau.herokuapp.com/test-endpoint"
 	async with websockets.connect(uri) as websocket:
 
-		await websocket.send("m")
+		await websocket.send("1")
 
 		rs = await websocket.recv() 
 		print(f"< {rs}")
