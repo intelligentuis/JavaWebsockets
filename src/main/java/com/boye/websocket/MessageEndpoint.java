@@ -15,7 +15,7 @@ import java.util.*;
 @ServerEndpoint("/test-endpoint")
 public class MessageEndpoint {
 
-    Map<String, Session> sessions = new ConcurrentHashMap<>();
+    Map<String, Session> sessions = new Map<String, Session>();
 
     @OnOpen
     public void onOpen(Session session) {
@@ -28,7 +28,8 @@ public class MessageEndpoint {
         // if ("GET".equals(message)) {
            
             try {
-                String msg = "Message " + toString(sessions.size());
+                Integer i = sessions.size();
+                String msg = "Message " + i.toString();
                 System.out.println(msg);
                 session.getBasicRemote().sendText(msg);
             } catch (IOException ex) {
