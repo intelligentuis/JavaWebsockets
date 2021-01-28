@@ -68,11 +68,23 @@ public class GameEndpoint2 {
 
                         System.out.println("GameBegins");
 
-                        idPlayer2 = sessions.get(idLevel);
+                        idPlayer2 = levels.get(idLevel);
                         sessions.remove(idLevel);
 
-                        session.getBasicRemote().sendText("{'option':'GameBegins'}");
-                        sessions.get(idPlayer2).getBasicRemote().sendText("{'option':'GameBegins'}");
+                        // SEND TO PLAYER 2
+
+                        JSONObject obj1 = new JSONObject();
+                        obj1.put("option","GameBegins");
+                        obj1.put("idPlayer2",idPlayer2);
+
+                        session.getBasicRemote().sendText(obj1.toString());
+
+                        // SEND TO PLAYER 1 
+
+                        JSONObject obj2 = new JSONObject();
+                        obj2.put("option","GameBegins");
+                        obj2.put("idPlayer2",idPlayer);
+                        sessions.get(idPlayer2).getBasicRemote().sendText(obj.toString());
 
                     }else // SO I AM PLAYER 1
                     {
