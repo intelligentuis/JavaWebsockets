@@ -93,6 +93,8 @@ public class GameEndpoint2 {
                         idLevel = json.getString("idLevel");
                         idPlayer = session.getId();
 
+                        levels.put(idLevel,idPlayer);
+
                     }
 
                
