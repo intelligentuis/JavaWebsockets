@@ -19,6 +19,7 @@ async def hello():
 		rs = await websocket.recv()  # x,y
 		print(">>",rs)
 
+		
 
 		for i in range(20):
 			rs = await websocket.recv()

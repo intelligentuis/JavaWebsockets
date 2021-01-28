@@ -19,16 +19,13 @@ async def hello():
 		print(">>",rs)
 
 
-
+		id = json.loads(rs)["idPlayer2"]
 
 		for i in range(100):
 			x,y = random.randint(1,1999),random.randint(1,1999)
-			m= {"x":str(x),"y":str(y),"option":"update","user":"Abdo"}
+			m= {"x":str(x),"y":str(y),"option":"update","user":"Abdo","idPlayer2":id}
 			await websocket.send(json.dumps(m))
 
-		# 	rs = await websocket.recv()  # x,y
-		# 	print(">>",rs)
-		# 	time.sleep(0.5)
 
 
 asyncio.get_event_loop().run_until_complete(hello())

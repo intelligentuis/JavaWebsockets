@@ -62,7 +62,7 @@ public class GameEndpoint2 {
                         System.out.println("I AM PLAYER2");
 
                         idPlayer2 = levels.get(idLevel);
-                        sessions.remove(idLevel);
+                        levels.remove(idLevel);
 
                         // SEND TO PLAYER 2
 
