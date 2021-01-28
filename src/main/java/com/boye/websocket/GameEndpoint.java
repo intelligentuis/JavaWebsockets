@@ -16,29 +16,21 @@ import org.json.*;
 @ServerEndpoint("/game-endpoint")
 public class GameEndpoint {
 
-    static Map<String, Session> peers = Collections.synchronizedMap(new HashMap<String, Session>());
-    // static Map<String, String> players = Collections.synchronizedMap(new HashMap<String, String>());
-    
-    String idPlayer1,idPlayer2, idPlayer,idGame,idLevel;
+    static Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<String, Session>()); // idPlayer:Session
+    static Map<String, String> levels = Collections.synchronizedMap(new HashMap<String, String>()); // level:idPLayer
+
+
+    String idPlayer2, idPlayer,idGame,idLevel;
     ResultSet rs;
 
 
     @OnOpen
     public void onOpen(Session session) {
 
-        try{
+        idPlayer = session.getId();
 
-        session.getBasicRemote().sendText("{'Hello':'44' }");
-
-        } catch (Exception e) 
-        {
-            System.out.println("There was an error: " + e.getMessage());
-        
-        } 
-
-
-        System.out.println("Open session " + session.getId());
-        peers.put(session.getId(), session);
+        System.out.println("Open session " + idPlayer);
+        sessions.put(session.getId(), session);
     }
 
     @OnMessage
@@ -59,68 +51,44 @@ public class GameEndpoint {
         {
 
             idLevel = json.getString("idLevel");
-            idPlayer = "@"+UUID.randomUUID();
-
-            PreparedStatement st;
-            Connection connection = null;
 
             try {
 
-                    String dbUrl = System.getenv("JDBC_DATABASE_URL");
-                    connection= DriverManager.getConnection(dbUrl);
-
-                    // Player1 Or Player2
-
-                    st = connection.prepareStatement("SELECT idplayer FROM Players WHERE idgame IS NULL and idlevel = ?");
-                    st.setString(1, idLevel);
-                    rs = st.executeQuery();
-
-                    if (rs.next()) // SO I AM PLAYER 2
+                    if(levels.containsKey(idLevel))// SO I AM PLAYER 2
                     {
-                        idPlayer2 = idPlayer;//json.getString("idPlayer");
-                        idPlayer1 = rs.getString("idPlayer");
 
                         idGame = "@"+UUID.randomUUID();
 
-                        // Init Player
-                        st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel,idSession)  VALUES ( ?,?,?)");
-                        st.setString(1, idPlayer2);
-                        st.setString(2, idLevel);
-                        st.setString(3, session.getId());
-                        st.executeUpdate(); 
+                        System.out.println("I AM PLAYER2");
 
-                        // Set Game ID
-                        st = connection.prepareStatement("UPDATE Players SET idGame = ? WHERE idPlayer IN (?,?)");
-                        st.setString(1, idGame);
-                        st.setString(2, idPlayer1);
-                        st.setString(3, idPlayer2);
-                        st.executeUpdate(); 
+                        idPlayer2 = levels.get(idLevel);
+                        levels.remove(idLevel);
 
-                        System.out.println("GameBegins");
-                        session.getBasicRemote().sendText("{'message':'GameBegins'}");
+                        // SEND TO PLAYER 2
+
+                        JSONObject obj1 = new JSONObject();
+                        obj1.put("option","GameBegins");
+                        obj1.put("idPlayer2",idPlayer2);
+
+                        session.getBasicRemote().sendText(obj1.toString());
+
+                        // SEND TO PLAYER 1 
+
+                        JSONObject obj2 = new JSONObject();
+                        obj2.put("option","GameBegins");
+                        obj2.put("idPlayer2",idPlayer);
+                        System.out.println(obj2.toString());
+                        sessions.get(idPlayer2).getBasicRemote().sendText(obj2.toString());
+
                     }else // SO I AM PLAYER 1
                     {
-                        idPlayer1 = idPlayer; ;//json.getString("idPlayer");
+                        System.out.println("I AM PLAYER1");
+
                         idLevel = json.getString("idLevel");
-                        // Init Player
-                        st = connection.prepareStatement("INSERT INTO Players (idPlayer,idLevel,idSession)  VALUES ( ?,?,?)");
-                        st.setString(1, idPlayer1);
-                        st.setString(2, idLevel);
-                        st.setString(3, session.getId());
-                        st.executeUpdate(); 
+                        idPlayer = session.getId();
 
-                        do
-                        {
-                            st = connection.prepareStatement("SELECT idgame FROM Players WHERE idgame IS NOT  NULL and idPlayer=?");
-                            st.setString(1, idPlayer1);
-                            rs = st.executeQuery();
+                        levels.put(idLevel,idPlayer);
 
-                        }while(!rs.next());
-
-                        idGame =rs.getString("idGame");
-
-                        System.out.println("GameBegins");
-                        session.getBasicRemote().sendText("{'message':'GameBegins'}");
                     }
 
                
@@ -129,137 +97,36 @@ public class GameEndpoint {
             } catch (Exception e) {
                 System.out.println("There was an error: " + e.getMessage());
         
-            } finally {
-                if (connection != null) try{connection.close();} catch(SQLException e){}
-            }
+            } 
 
 
         }
+
         // Send And Get Update
         else if(option.equals("update"))
         {
 
-            PreparedStatement st;
-            Connection connection = null;
 
             try {
 
-                    System.out.println("IDPLAYER "+idPlayer+" IDGAME "+idGame);
 
-
-                    String dbUrl = System.getenv("JDBC_DATABASE_URL");
-                    connection= DriverManager.getConnection(dbUrl);
-
-                    System.out.println(">>>>>"+json.getString("x"));
-
-                    // UPDATE Players SET x='20' ,y = '20' WHERE idPlayer = '@f4e10b4a-e961-4d3e-b294-8a5f51468a3f' and idGame = '@881d6278-7524-4a87-b0da-e28a01b69406'
-
-                    st = connection.prepareStatement("UPDATE Players SET x=? ,y = ? WHERE idPlayer = ? and idGame = ?");
-                    st.setString(1, json.getString("x"));
-                    st.setString(2, json.getString("y"));
-                    st.setString(3, idPlayer);
-                    st.setString(4, idGame);
-                    st.executeUpdate(); 
-
-
-                    // Get xy of other players
-
-                    st = connection.prepareStatement("SELECT x,y FROM Players WHERE NOT idPlayer = ? and idGame = ?");
-                    st.setString(1, idPlayer);
-                    st.setString(2, idGame);
-                    rs = st.executeQuery();
-
-                    rs.next();
-                    System.out.println("####" + rs.getString("x")+","+rs.getString("y"));
-                    System.out.println(idPlayer+" *** "+idGame);
-                    // session.getBasicRemote().sendText(rs.getString("x")+","+rs.getString("y"));
-                    session.getBasicRemote().sendText("{'x':'255','y':'632','message':'position'}");
-               
+                sessions.get(json.getString("idPlayer2")).getBasicRemote().sendText(message);
+                  
 
                     
             } catch (Exception e) {
                 System.out.println("There was an error: " + e.getMessage());
         
-            } finally {
-                if (connection != null) try{connection.close();} catch(SQLException e){}
-            }
+            } 
 
         }
-        // 
-        else if(option.equals("coinEated"))
-        {
-
-            PreparedStatement st;
-            Connection connection = null;
-
-            try {
-
-                    String dbUrl = System.getenv("JDBC_DATABASE_URL");
-                    connection= DriverManager.getConnection(dbUrl);
-
-
-                    st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
-                    st.setString(1, idGame);
-                    st.setString(2, idPlayer);
-                    rs = st.executeQuery();
-
-                    rs.next();
-
-                    // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
-                    peers.get(rs.getString("idSession")).getBasicRemote().sendText(json.getString("idCoin"));  /// TODO
-               
-
-                    
-            } catch (Exception e) {
-                System.out.println("There was an error: " + e.getMessage());
-        
-            } finally {
-                if (connection != null) try{connection.close();} catch(SQLException e){}
-            }
-        }
-
-        else if(option.equals("status"))
-        {
-
-            // String status = json.getString("status");
-            // if(okera.equals("win"))status = "loss";
-            // else status = "win";
-
-            // PreparedStatement st;
-            // Connection connection = null;
-
-            // try {
-
-            //         String dbUrl = System.getenv("JDBC_DATABASE_URL");
-            //         connection= DriverManager.getConnection(dbUrl);
-
-
-            //         st = connection.prepareStatement("SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?");
-            //         st.setString(1, idGame);
-            //         st.setString(2, idPlayer);
-            //         rs = st.executeQuery();
-
-            //         rs.next();
-
-            //         // SELECT idSession FROM Players WHERE idGame=? and NOT idPlayer = ?
-            //         peers.get(rs.getString("idSession")).getBasicRemote().sendText(json.getString(Okera));
-               
-
-                    
-            // } catch (Exception e) {
-            //     System.out.println("There was an error: " + e.getMessage());
-        
-            // } finally {
-            //     if (connection != null) try{connection.close();} catch(SQLException e){}
-            // }
-        }
-
+       
 
     }
 
     @OnClose
     public void onClose(Session session) {
-        peers.put(session.getId(), session);
+        sessions.put(session.getId(), session);
         System.out.println("Session " + session.getId() + " is closed.");
     }
 }
