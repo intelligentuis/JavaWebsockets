@@ -13,7 +13,7 @@ import java.sql.*;
 import java.util.*; 
 import org.json.*;
 
-@ServerEndpoint("/game-endpoint")
+@ServerEndpoint("/game-endpoint2")
 public class GameEndpoint2 {
 
     static Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<String, Session>()); // idPlayer:Session
