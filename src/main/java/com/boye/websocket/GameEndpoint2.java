@@ -29,7 +29,7 @@ public class GameEndpoint2 {
 
         idPlayer = session.getId();
 
-        System.out.println("Open session " + idPLayer);
+        System.out.println("Open session " + idPlayer);
         sessions.put(session.getId(), session);
     }
 
