@@ -116,7 +116,7 @@ public class GameEndpoint2 {
             try {
 
 
-                sessions.get(idPlayer2).getBasicRemote().sendText(message);
+                sessions.get(json.getString("idPlayer2")).getBasicRemote().sendText(message);
                   
 
                     
