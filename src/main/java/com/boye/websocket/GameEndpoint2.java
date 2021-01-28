@@ -27,16 +27,9 @@ public class GameEndpoint2 {
     @OnOpen
     public void onOpen(Session session) {
 
-        try{
+        idPlayer = session.getId();
 
-        } catch (Exception e) 
-        {
-            System.out.println("There was an error: " + e.getMessage());
-        
-        } 
-
-
-        System.out.println("Open session " + session.getId());
+        System.out.println("Open session " + idPLayer);
         sessions.put(session.getId(), session);
     }
 
