@@ -66,7 +66,7 @@ public class GameEndpoint2 {
 
                         idGame = "@"+UUID.randomUUID();
 
-                        System.out.println("GameBegins");
+                        System.out.println("I AM PLAYER2");
 
                         idPlayer2 = levels.get(idLevel);
                         sessions.remove(idLevel);
@@ -88,6 +88,8 @@ public class GameEndpoint2 {
 
                     }else // SO I AM PLAYER 1
                     {
+                        System.out.println("I AM PLAYER1");
+
                         idLevel = json.getString("idLevel");
                         idPlayer = session.getId();
 
@@ -103,6 +105,7 @@ public class GameEndpoint2 {
 
 
         }
+
         // Send And Get Update
         else if(option.equals("update"))
         {

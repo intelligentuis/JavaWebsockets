@@ -15,6 +15,10 @@ async def hello():
 
 		await websocket.send(json.dumps(m))
 
+		rs = await websocket.recv()  # x,y
+		print(">>",rs)
+
+		
 		for i in range(20):
 			m = {"idLevel":"20","option":"startGame","option":"update"}
 			await websocket.send(json.dumps(m))

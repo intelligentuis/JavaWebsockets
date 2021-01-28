@@ -15,6 +15,11 @@ async def hello():
 
 		await websocket.send(json.dumps(m))
 
+
+		rs = await websocket.recv()  # x,y
+		print(">>",rs)
+
+		
 		for i in range(20):
 			rs = await websocket.recv()
 			print(f"< {rs}")
