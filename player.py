@@ -19,20 +19,12 @@ async def hello():
 		rs = await websocket.recv()  # x,y
 		print(">>",rs)
 
-		
+
 		for i in range(20):
 			rs = await websocket.recv()
 			print(f"< {rs}")
 
 
-		# for i in range(100):
-		# 	x,y = random.randint(1,1999),random.randint(1,1999)
-		# 	m= {"x":str(x),"y":str(y),"option":"update","user":"Abdo"}
-		# 	await websocket.send(json.dumps(m))
-
-		# 	rs = await websocket.recv()  # x,y
-		# 	print(">>",rs)
-		# 	time.sleep(0.5)
 
 
 asyncio.get_event_loop().run_until_complete(hello())

@@ -84,6 +84,7 @@ public class GameEndpoint2 {
                         JSONObject obj2 = new JSONObject();
                         obj2.put("option","GameBegins");
                         obj2.put("idPlayer2",idPlayer);
+                        System.out.println(obj2.toString());
                         sessions.get(idPlayer2).getBasicRemote().sendText(obj2.toString());
 
                     }else // SO I AM PLAYER 1
