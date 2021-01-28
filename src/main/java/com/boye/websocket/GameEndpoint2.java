@@ -1,0 +1,121 @@
+package com.boye.websocket;
+
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.UUID;
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+import java.sql.*;
+import java.util.*; 
+import org.json.*;
+
+@ServerEndpoint("/game-endpoint")
+public class GameEndpoint2 {
+
+    static Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<String, Session>()); // idPlayer:Session
+    static Map<String, String> levels = Collections.synchronizedMap(new HashMap<String, String>()); // level:idPLayer
+
+
+    String idPlayer2, idPlayer,idGame,idLevel;
+    ResultSet rs;
+
+
+    @OnOpen
+    public void onOpen(Session session) {
+
+        try{
+
+        } catch (Exception e) 
+        {
+            System.out.println("There was an error: " + e.getMessage());
+        
+        } 
+
+
+        System.out.println("Open session " + session.getId());
+        sessions.put(session.getId(), session);
+    }
+
+    @OnMessage
+    public void onMessage(String message, final Session session) {
+
+        // Get The Message
+        System.out.println("Session " + session.getId() + " message: " + message);
+
+
+        JSONObject json = new JSONObject(message);
+
+
+        // Replying ( There are 3 sinarios)
+        // 1s : Find Player
+        String option = json.getString("option");
+
+        if(option.equals("startGame"))
+        {
+
+            idLevel = json.getString("idLevel");
+
+            try {
+
+                    if(levels.containsKey(idLevel))// SO I AM PLAYER 2
+                    {
+
+                        idGame = "@"+UUID.randomUUID();
+
+                        System.out.println("GameBegins");
+
+                        idPlayer2 = sessions.get(idLevel);
+                        sessions.remove(idLevel);
+
+                        session.getBasicRemote().sendText("{'option':'GameBegins'}");
+                        sessions.get(idPlayer2).getBasicRemote().sendText("{'option':'GameBegins'}");
+
+                    }else // SO I AM PLAYER 1
+                    {
+                        idLevel = json.getString("idLevel");
+                        idPlayer = session.getId();
+
+                    }
+
+               
+
+                    
+            } catch (Exception e) {
+                System.out.println("There was an error: " + e.getMessage());
+        
+            } 
+
+
+        }
+        // Send And Get Update
+        else if(option.equals("update"))
+        {
+
+
+            try {
+
+
+                sessions.get(idPlayer2).getBasicRemote().sendText(message);
+                  
+
+                    
+            } catch (Exception e) {
+                System.out.println("There was an error: " + e.getMessage());
+        
+            } 
+
+        }
+       
+
+    }
+
+    @OnClose
+    public void onClose(Session session) {
+        sessions.put(session.getId(), session);
+        System.out.println("Session " + session.getId() + " is closed.");
+    }
+}
