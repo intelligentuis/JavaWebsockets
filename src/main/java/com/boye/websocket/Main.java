@@ -27,7 +27,8 @@ public class Main {
         try {
             String port = System.getenv("PORT");
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
-            Naming.rebind("rmi://localhost:"+port+"/rmi" , f);
+            // "rmi://localhost:"+port+"/rmi"
+            Naming.rebind("ok" , f);
             System.out.println("Server Ready...");
 
         } catch (Exception e) {
