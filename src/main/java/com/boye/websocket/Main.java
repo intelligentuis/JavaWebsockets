@@ -32,10 +32,11 @@ public class Main {
 
         try {
             String port = System.getenv("PORT");
+            // java.lang.Integer.parseInt(port)
 
-            Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(port));
+            Registry registry = LocateRegistry.createRegistry(1099);
            
-            registry.rebind("url" , f);
+            registry.rebind("OK" , f);
 
 
             System.out.println("Server Ready...");
