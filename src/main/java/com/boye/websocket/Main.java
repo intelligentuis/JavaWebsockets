@@ -33,7 +33,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 
 
-public class Fibonacci extends UnicastRemoteObject  {
+private  class Fibonacci extends UnicastRemoteObject  {
     public Fibonacci() throws RemoteException {
     }
 
@@ -48,7 +48,7 @@ public class Main {
 
     public static void main(String[] a) {
         try {
-            Fibonacci f = new Fibonacci();
+             public static Fibonacci f = new Fibonacci();
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
             Naming.rebind("oktest" , f);
             System.out.println("Server Ready...");
