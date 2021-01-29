@@ -33,8 +33,8 @@ public class Main {
 
 
 
-    public static void main(String[] a) throws RemoteException {
-        static Fibonacci f = new Fibonacci();
+    static Fibonacci f = new Fibonacci();
+    public static void main(String[] a){
         
         try {
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
