@@ -34,8 +34,8 @@ public class Main {
 
 
     static Fibonacci f ;
-    public static void main(String[] a){
-        
+    public static void main(String[] a) throws RemoteException {
+
         f= new Fibonacci();
 
         try {
