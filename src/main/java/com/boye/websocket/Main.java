@@ -26,34 +26,16 @@ package com.boye.websocket;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
-
 
 
 public class Main {
-    private class Fibonacci extends UnicastRemoteObject  {
-        public Fibonacci() throws RemoteException {
-        }
-
-        public long fibonacci(int rank) throws RemoteException {
-            long f = 1, ft = 1, tmp;
-            for (int i = 2; i <= rank; i++) {
-                tmp = f;
-                f = ft;
-                ft = ft + tmp;
-            }
-            return ft;
-        }
-    }
 
 
     public static void main(String[] a) {
         try {
-            static Fibonacci f = new Fibonacci();
+            Fibonacci f = new Fibonacci();
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
-            Naming.rebind("rmi://localhost:"+System.getenv("PORT")+"/rmi" , f);
+            Naming.rebind("oktest" , f);
             System.out.println("Server Ready...");
 
         } catch (Exception e) {
