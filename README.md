@@ -40,6 +40,3 @@ SELECT * FROM Players;
 SELECT idSession FROM Players WHERE idGame='2020' and NOT idPlayer = 'p1'
 
 
-
-# Profile 
-web: sh target/bin/webapp

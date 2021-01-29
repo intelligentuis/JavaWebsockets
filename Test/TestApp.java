@@ -1,33 +1,26 @@
-import java.net.URI;
-import java.net.URISyntaxException;
 
-// javac -cp "/usr/share/java/*" TestApp.java 
+import java.rmi.Naming;
+import java.util.Scanner;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+
+
 
 
 public class TestApp {
+    private static final String KEY = "rmi://pacific-plateau.herokuapp.com/oktest";
 
-    public static void main(String[] args) {
+    public static void main(String[] a) {
         try {
-            // open websocket
-            final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("ws://pacific-plateau.herokuapp.com/game-endpoint"));
-
-            // add listener
-            clientEndPoint.addMessageHandler(new WebsocketClientEndpoint.MessageHandler() {
-                public void handleMessage(String message) {
-                    System.out.println(message);
-                }
-            });
-
-            // send message to websocket
-            clientEndPoint.sendMessage("{'idLevel':'20','option':'startGame','user':java}");
-
-            // wait 5 seconds for messages from websocket
-            Thread.sleep(5000);
-
-        } catch (InterruptedException ex) {
-            System.err.println("InterruptedException exception: " + ex.getMessage());
-        } catch (URISyntaxException ex) {
-            System.err.println("URISyntaxException exception: " + ex.getMessage());
+            IFibo f = (IFibo) Naming.lookup(KEY);
+            System.out.print("Fibonacci of: ");
+            Scanner scanner = new Scanner(System.in);
+            System.out.println(f.fibonacci(scanner.nextInt()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 }
