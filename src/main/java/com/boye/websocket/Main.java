@@ -54,7 +54,7 @@ public class Main {
     public static void main(String[] a) {
         try {
             Fibonacci f = new Fibonacci();
-            LocateRegistry.createRegistry(System.getenv("PORT"));
+            LocateRegistry.createRegistry(Integer.parseIn(System.getenv("PORT")));
             Naming.rebind(KEY , f);
             System.out.println("Server Ready...");
 
