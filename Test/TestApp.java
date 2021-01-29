@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 
 public class TestApp {
-    private static final String KEY = "rmi://pacific-plateau.herokuapp.com/url";
+    private static final String KEY = "rmi://pacific-plateau.herokuapp.com:8080/OK";
 
     public static void main(String[] a) {
         try {

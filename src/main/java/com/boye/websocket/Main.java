@@ -19,22 +19,19 @@ public class Main {
     static Fibonacci f ;
     public static void main(String[] a) {
 
-        System.out.println("HELLLLLLLOOOOOOOO");
-
         try
         {
 
         f= new Fibonacci();
         }catch (RemoteException e)
         {
-            System.out.println("ERRRRRRRRRRRRRRRRROOOOOOOOOOORRRR");
         }
 
         try {
             String port = System.getenv("PORT");
             // java.lang.Integer.parseInt(port)
 
-            Registry registry = LocateRegistry.createRegistry(1099);
+            Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(port));
            
             registry.rebind("OK" , f);
 
