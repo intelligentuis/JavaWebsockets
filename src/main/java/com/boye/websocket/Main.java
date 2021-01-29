@@ -25,9 +25,9 @@ public class Main {
         }
 
         try {
-            //java.lang.Integer.parseInt(System.getenv("PORT"))
+            String port = java.lang.Integer.parseInt(System.getenv("PORT"))
             LocateRegistry.createRegistry(8080);
-            Naming.rebind("rmi://localhost:8080/rmi" , f);
+            Naming.rebind("rmi://localhost:"+port+"/rmi" , f);
             System.out.println("Server Ready...");
 
         } catch (Exception e) {
