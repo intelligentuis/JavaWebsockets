@@ -32,7 +32,7 @@ import java.rmi.registry.LocateRegistry;
 public class Main {
 
 
-    Fibonacci f = new Fibonacci();
+    static Fibonacci f = new Fibonacci();
 
     public static void main(String[] a) {
         try {
