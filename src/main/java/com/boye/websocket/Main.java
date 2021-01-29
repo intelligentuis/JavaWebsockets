@@ -48,13 +48,12 @@ public class Main {
         }
     }
 
-    private  final String KEY = "rmi://localhost:"+System.getenv("PORT")+"/rmi";
 
     public static void main(String[] a) {
         try {
             Fibonacci f = new Fibonacci();
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
-            Naming.rebind(KEY , f);
+            Naming.rebind("rmi://localhost:"+System.getenv("PORT")+"/rmi" , f);
             System.out.println("Server Ready...");
 
         } catch (Exception e) {
