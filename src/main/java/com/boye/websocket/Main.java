@@ -35,10 +35,9 @@ public class Main {
 
             Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
            
-            // System.setProperty("java.rmi.server.hostname","1.2.3.4");
             // "rmi://localhost:"+port+"/rmi"
             String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/ok";
-            registry.rebind(url , f);
+            registry.rebind("url" , f);
 
 
             System.out.println("Server Ready...");
