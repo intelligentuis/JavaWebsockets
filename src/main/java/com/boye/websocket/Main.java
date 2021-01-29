@@ -23,19 +23,17 @@ package com.boye.websocket;
 //     }
 // }
 
-import java.lang.module.FindException;
+
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-private class Fibonacci extends UnicastRemoteObject implements IFibo {
+private class Fibonacci extends UnicastRemoteObject  {
     protected Fibonacci() throws RemoteException {
-        super();
     }
 
-    @Override
     public long fibonacci(int rank) throws RemoteException {
         long f = 1, ft = 1, tmp;
         for (int i = 2; i <= rank; i++) {
@@ -51,14 +49,15 @@ private class Fibonacci extends UnicastRemoteObject implements IFibo {
 
 public class Main {
 
-    private static final String KEY = "rmi://localhost:10101/";
+    private static final String KEY = "rmi://localhost:"+System.getenv("PORT")+"/rmi";
 
     public static void main(String[] a) {
         try {
             Fibonacci f = new Fibonacci();
-            LocateRegistry.createRegistry(10101);
-            Naming.rebind(KEY + "f", f);
+            LocateRegistry.createRegistry(System.getenv("PORT"));
+            Naming.rebind(KEY , f);
             System.out.println("Server Ready...");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
