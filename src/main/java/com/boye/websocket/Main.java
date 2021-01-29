@@ -48,7 +48,7 @@ public class Main {
 
     public static void main(String[] a) {
         try {
-             public static Fibonacci f = new Fibonacci();
+            Fibonacci f = new Fibonacci();
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
             Naming.rebind("oktest" , f);
             System.out.println("Server Ready...");
