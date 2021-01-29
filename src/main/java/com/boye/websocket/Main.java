@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
+import java.net.InetAddress;
+
 
 public class Main {
 
@@ -28,7 +30,8 @@ public class Main {
             String port = System.getenv("PORT");
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
             // "rmi://localhost:"+port+"/rmi"
-            Naming.rebind("ok" , f);
+            String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/TestRMI";
+            Naming.rebind(url , f);
             System.out.println("Server Ready...");
 
         } catch (Exception e) {
