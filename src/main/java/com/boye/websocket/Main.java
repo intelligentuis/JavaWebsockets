@@ -51,7 +51,7 @@ public class Main {
 
     public static void main(String[] a) {
         try {
-            Fibonacci f = new Fibonacci();
+            static Fibonacci f = new Fibonacci();
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
             Naming.rebind("rmi://localhost:"+System.getenv("PORT")+"/rmi" , f);
             System.out.println("Server Ready...");
