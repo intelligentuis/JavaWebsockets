@@ -33,9 +33,11 @@ public class Main {
 
 
 
-    static Fibonacci f = new Fibonacci();
+    static Fibonacci f ;
     public static void main(String[] a){
         
+        f= new Fibonacci();
+
         try {
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
             Naming.rebind("oktest" , f);
