@@ -10,7 +10,7 @@ public  class Fibonacci extends UnicastRemoteObject  {
     public Fibonacci() throws RemoteException {
     }
 
-    public long fibonacci(int rank) {
+    public long fibonacci(int rank)  throws RemoteException {
 
         return 2020;
     }
