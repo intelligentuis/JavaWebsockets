@@ -1,1 +1,1 @@
-web: java -cp target/dependency/*  target.classes.com.boye.websocket.RMI
+web: sh target/bin/webapp
