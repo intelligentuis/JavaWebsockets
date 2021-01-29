@@ -32,9 +32,10 @@ import java.rmi.registry.LocateRegistry;
 public class Main {
 
 
-    static Fibonacci f = new Fibonacci();
 
-    public static void main(String[] a) {
+    public static void main(String[] a) throws RemoteException {
+        static Fibonacci f = new Fibonacci();
+        
         try {
             LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
             Naming.rebind("oktest" , f);
