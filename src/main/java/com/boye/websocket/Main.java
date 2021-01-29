@@ -49,7 +49,7 @@ private class Fibonacci extends UnicastRemoteObject implements IFibo {
 
 
 
-public class MainServer {
+public class Main {
 
     private static final String KEY = "rmi://localhost:10101/";
 
