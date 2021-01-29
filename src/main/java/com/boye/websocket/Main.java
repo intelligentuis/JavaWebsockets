@@ -27,7 +27,7 @@ public class Main {
         f= new Fibonacci();
         }catch (RemoteException e)
         {
-            
+            System.out.println("ERRRRRRRRRRRRRRRRROOOOOOOOOOORRRR");
         }
 
         try {
