@@ -33,8 +33,8 @@ public class Main {
         try {
             String port = System.getenv("PORT");
             System.out.print("Port "+port +"#");
-            Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(port));
-           
+            // Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(port));
+            Registry registry =  LocateRegistry.getRegistry();
             // "rmi://localhost:"+port+"/rmi"
             // String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/ok";
             registry.rebind("url" , f);
