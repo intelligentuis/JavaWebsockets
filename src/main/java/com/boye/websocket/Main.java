@@ -10,9 +10,10 @@ import java.rmi.server.UnicastRemoteObject;
 public class Main {
 
 
-
     static Fibonacci f ;
     public static void main(String[] a) {
+
+        System.out.println("HELLLLLLLOOOOOOOO");
 
         try
         {
@@ -24,8 +25,8 @@ public class Main {
         }
 
         try {
-            // 
-            LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
+            //java.lang.Integer.parseInt(System.getenv("PORT"))
+            LocateRegistry.createRegistry(8080);
             Naming.rebind("ok" , f);
             System.out.println("Server Ready...");
 
