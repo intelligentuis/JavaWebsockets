@@ -32,11 +32,11 @@ public class Main {
 
         try {
             String port = System.getenv("PORT");
-
-            Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
+            System.out.print("Port "+port +"#");
+            Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(port));
            
             // "rmi://localhost:"+port+"/rmi"
-            String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/ok";
+            // String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/ok";
             registry.rebind("url" , f);
 
 
