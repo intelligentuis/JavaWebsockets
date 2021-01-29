@@ -23,31 +23,30 @@ package com.boye.websocket;
 //     }
 // }
 
-import java.lang.*;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-private class Fibonacci extends UnicastRemoteObject  {
-    public Fibonacci() throws RemoteException {
-    }
-
-    public long fibonacci(int rank) throws RemoteException {
-        long f = 1, ft = 1, tmp;
-        for (int i = 2; i <= rank; i++) {
-            tmp = f;
-            f = ft;
-            ft = ft + tmp;
-        }
-        return ft;
-    }
-}
 
 
 
 public class Main {
+    private class Fibonacci extends UnicastRemoteObject  {
+        public Fibonacci() throws RemoteException {
+        }
+
+        public long fibonacci(int rank) throws RemoteException {
+            long f = 1, ft = 1, tmp;
+            for (int i = 2; i <= rank; i++) {
+                tmp = f;
+                f = ft;
+                ft = ft + tmp;
+            }
+            return ft;
+        }
+    }
 
     private static final String KEY = "rmi://localhost:"+System.getenv("PORT")+"/rmi";
 
