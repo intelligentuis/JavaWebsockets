@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
-import java.rmi.server.hostname;
+// import java.rmi.server.hostname;
 
 
 public class Main {
@@ -32,12 +32,12 @@ public class Main {
 
             Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
            
-            System.setProperty("java.rmi.server.hostname","1.2.3.4");
+            // System.setProperty("java.rmi.server.hostname","1.2.3.4");
             // "rmi://localhost:"+port+"/rmi"
-            // String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/TestRMI";
-            Naming.rebind("ok" , f);
+            String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/ok";
+            registry.rebind(url , f);
 
-            
+
             System.out.println("Server Ready...");
 
         } catch (Exception e) {
