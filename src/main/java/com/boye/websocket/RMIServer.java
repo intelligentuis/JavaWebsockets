@@ -7,7 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 
 
-public class RMIMain {
+public class RMIServer {
 
 
 
