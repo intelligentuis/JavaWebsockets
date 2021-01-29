@@ -17,8 +17,8 @@ public class RMIServer {
         f= new Fibonacci();
 
         try {
-            // java.lang.Integer.parseInt(System.getenv("PORT"))
-            LocateRegistry.createRegistry();
+            // 
+            LocateRegistry.createRegistry(java.lang.Integer.parseInt(System.getenv("PORT")));
             Naming.rebind("ok" , f);
             System.out.println("Server Ready...");
 
