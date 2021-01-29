@@ -18,7 +18,7 @@ public class Main {
         {
 
         f= new Fibonacci();
-        }catch (e RemoteException )
+        }catch (RemoteException e)
         {
             
         }
