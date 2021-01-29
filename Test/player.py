@@ -6,25 +6,26 @@ import asyncio
 import websockets
 import random
 import json
+import threading
 import time
 async def hello():
 	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint"
 	async with websockets.connect(uri) as websocket:
-		m = {"idLevel":"20","option":"startGame","user":"Abdo"}
+		m = {"idLevel":"20","option":"startGame"}
 
 
 		await websocket.send(json.dumps(m))
 
-		rs = await websocket.recv()  # x,y
+
+		rs = await websocket.recv()  #  Waiting Start Game
 		print(">>",rs)
 
+		
 
-		id = json.loads(rs)["idPlayer2"]
+		for i in range(20):
+			rs = await websocket.recv()
+			print(f"< {rs}")
 
-		for i in range(100):
-			x,y = random.randint(1,1999),random.randint(1,1999)
-			m= {"x":str(x),"y":str(y),"option":"update","user":"Abdo","idPlayer2":id}
-			await websocket.send(json.dumps(m))
 
 
 

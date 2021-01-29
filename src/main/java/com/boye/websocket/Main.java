@@ -1,24 +1,66 @@
 package com.boye.websocket;
 
-import java.io.File;
-import javax.servlet.ServletException;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.startup.Tomcat;
+// import java.io.File;
+// import javax.servlet.ServletException;
+// import org.apache.catalina.LifecycleException;
+// import org.apache.catalina.startup.Tomcat;
 
-public class Main {
+// public class Main {
 
-    public static void main(String[] args) throws ServletException, LifecycleException {
-        Tomcat tomcat = new Tomcat();
-        // The port that we should run on can be set into an environment variable
-        // Look for that variable and default to 8080 if it isn't there.
-        String webPort = System.getenv("PORT");
-        if (webPort == null || webPort.isEmpty()) {
-            webPort = "8080";
+//     public static void main(String[] args) throws ServletException, LifecycleException {
+//         Tomcat tomcat = new Tomcat();
+//         // The port that we should run on can be set into an environment variable
+//         // Look for that variable and default to 8080 if it isn't there.
+//         String webPort = System.getenv("PORT");
+//         if (webPort == null || webPort.isEmpty()) {
+//             webPort = "8080";
+//         }
+//         tomcat.setPort(Integer.valueOf(webPort));
+//         String webappDirLocation = "src/main/webapp/";
+//         tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+//         tomcat.start();
+//         tomcat.getServer().await();
+//     }
+// }
+
+import java.lang.module.FindException;
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+private class Fibonacci extends UnicastRemoteObject implements IFibo {
+    protected Fibonacci() throws RemoteException {
+        super();
+    }
+
+    @Override
+    public long fibonacci(int rank) throws RemoteException {
+        long f = 1, ft = 1, tmp;
+        for (int i = 2; i <= rank; i++) {
+            tmp = f;
+            f = ft;
+            ft = ft + tmp;
         }
-        tomcat.setPort(Integer.valueOf(webPort));
-        String webappDirLocation = "src/main/webapp/";
-        tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-        tomcat.start();
-        tomcat.getServer().await();
+        return ft;
+    }
+}
+
+
+
+public class MainServer {
+
+    private static final String KEY = "rmi://localhost:10101/";
+
+    public static void main(String[] a) {
+        try {
+            Fibonacci f = new Fibonacci();
+            LocateRegistry.createRegistry(10101);
+            Naming.rebind(KEY + "f", f);
+            System.out.println("Server Ready...");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

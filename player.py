@@ -8,7 +8,7 @@ import random
 import json
 import time
 async def hello():
-	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint2"
+	uri = "ws://pacific-plateau.herokuapp.com/game-endpoint"
 	async with websockets.connect(uri) as websocket:
 		m = {"idLevel":"20","option":"startGame","user":"Abdo"}
 
