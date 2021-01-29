@@ -23,7 +23,7 @@ package com.boye.websocket;
 //     }
 // }
 
-
+import java.lang.*;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
@@ -31,7 +31,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 private class Fibonacci extends UnicastRemoteObject  {
-    protected Fibonacci() throws RemoteException {
+    public Fibonacci() throws RemoteException {
     }
 
     public long fibonacci(int rank) throws RemoteException {
