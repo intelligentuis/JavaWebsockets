@@ -7,10 +7,10 @@ import java.rmi.server.UnicastRemoteObject;
 
 
 public  class Fibonacci extends UnicastRemoteObject  {
-    public Fibonacci(){
+    public Fibonacci() throws RemoteException {
     }
 
-    public long fibonacci(int rank)  {
+    public long fibonacci(int rank) {
 
         return 2020;
     }
