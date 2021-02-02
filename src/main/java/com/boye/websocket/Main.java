@@ -1,45 +1,25 @@
 package com.boye.websocket;
 
-import java.rmi.Naming;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-
-import java.io.*;  
-import java.net.*;  
-
-// import java.rmi.server.hostname;
-
+import java.io.File;
+import javax.servlet.ServletException;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.startup.Tomcat;
 
 public class Main {
 
-
-    static Fibonacci f ;
-    public static void main(String[] a) {
-
-        try
-        {
-
-        f= new Fibonacci();
-        }catch (RemoteException e)
-        {
+    public static void main(String[] args) throws ServletException, LifecycleException {
+        Tomcat tomcat = new Tomcat();
+        // The port that we should run on can be set into an environment variable
+        // Look for that variable and default to 8080 if it isn't there.
+        String webPort = System.getenv("PORT");
+        if (webPort == null || webPort.isEmpty()) {
+            webPort = "8080";
         }
-
-        try {
-            String port = System.getenv("PORT");
-            // java.lang.Integer.parseInt(port)
-
-            Registry registry = LocateRegistry.createRegistry(java.lang.Integer.parseInt(port));
-           
-            registry.rebind("OK" , f);
-
-
-            System.out.println("Server Ready...");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        tomcat.setPort(Integer.valueOf(webPort));
+        String webappDirLocation = "src/main/webapp/";
+        tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        tomcat.start();
+        tomcat.getServer().await();
     }
 }

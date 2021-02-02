@@ -42,7 +42,6 @@ public class GameEndpoint {
 
         JSONObject json = new JSONObject(message);
 
-
         // Replying ( There are 3 sinarios)
         // 1s : Find Player
         String option = json.getString("option");
